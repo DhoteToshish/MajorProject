@@ -1,0 +1,11 @@
+body {
+    font-family: DM Sans;
+}
+
+.navbar .dropdown-toggle::after {
+    display: none !important;
+}
+
+header {
+    padding: 8px;
+}

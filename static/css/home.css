@@ -1,0 +1,230 @@
+/* CSS */
+body {
+    font-family: 'DM Sans';
+}
+
+/* Header section */
+header {
+    background-color: #f4f4f4;
+    padding: 7px;
+    height: 70px;
+    position: relative;
+    box-shadow: 0px 0px 10px rgb(174, 173, 173);
+    left: 0px;
+    top: 0px;
+    right: 0px;
+}
+
+.header_navigation_container1 {
+    margin-top: 2%;
+    margin-left: 80%;
+    width: fit-content;
+    color: black;
+}
+
+.header_navigation_container2 {
+    margin-top: -1.6%;
+    margin-left: 85.2%;
+    width: fit-content;
+    color: black;
+}
+
+.header_navigation_container3 {
+    margin-top: -2.2%;
+    margin-left: 91.6%;
+    width: fit-content;
+    color: black;
+}
+
+.nav_button1,
+.nav_button2,
+.nav_button3,
+.dropbtn {
+    font-size: 17px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    margin-top: 10px;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+#air_pollution:hover {
+    background-color: #ffda61;
+}
+
+#water_pollution:hover {
+    background-color: #7fb4fa;
+}
+
+#noise_pollution:hover {
+    background-color: #78fba5;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #f9f9f9;
+}
+
+/* Project Title Section */
+.project_title_section {
+    display: flex;
+}
+
+.project_title_section img {
+    width: 33.5%;
+    height: 600px;
+}
+
+.project_title {
+    position: relative;
+    margin-left: -1341px;
+    margin-right: 135px;
+    color: white;
+    font-weight: 1000;
+    font-size: 45px;
+    text-align: center;
+    margin-top: 200px;
+}
+
+/* Project Details Section */
+.project_details_section {
+    padding-top: 0px;
+    padding-bottom: 20px;
+    letter-spacing: 0.5px;
+}
+
+.project_details_section_container {
+    width: 73%;
+    margin-left: 11.6%;
+    padding: 10px;
+    border-radius: 25px;
+    background-color: white;
+    margin-top: 20px;
+    margin-bottom: -50px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+h2 {
+    font-size: 35px;
+    color: #525659;
+}
+
+p {
+    font-size: 22px;
+    text-align: justify;
+    color: #525659;
+}
+
+.objective_container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-left: 0px;
+    padding: 20px;
+}
+
+.objective_item {
+    flex: 1;
+    margin-right: 20px;
+    padding: 20px;
+    width: -136%;
+    border-radius: 36px;
+    background-color: #f4f4f4;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.objective_item:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+}
+
+h3 {
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+
+.objective_paragraph {
+    text-align: center;
+    color: black;
+}
+
+#objective_item1 {
+    background-color: #7fb4fa;
+}
+
+#objective_item2 {
+    background-color: #78fba5;
+}
+
+#objective_item3 {
+    background-color: #ffda61;
+}
+
+/* System Architecture Section */
+.system_architecture_section {
+    padding: 40px;
+    background-color: #f4f4f4;
+    margin-top: 50px;
+}
+
+.system_architecture_section img {
+    width: 68%;
+    height: 550px;
+    align-items: center;
+    box-shadow: 0px 0px 10px rgb(174, 173, 173);
+    border-radius: 20px;
+    margin-left: 16%;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.system_architecture_section img:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+}
+
+.system_architecture_section_heading {
+    font-size: 35px;
+    text-align: center;
+    color: #525659;
+}
+
+/* Footer Section */
+.footer_section {
+    background-color: #0d0d3d;
+    height: 80px;
+}
+
+.footer_section_list_container {
+    display: flex;
+    font-size: 15px;
+    color: white;
+    margin-left: 78%;
+    width: 305px;
+    height: fit-content;
+}
+
+.navbar .dropdown-toggle::after {
+    display: none !important;
+}

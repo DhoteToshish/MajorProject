@@ -22,19 +22,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <style>
-      body {
-        font-family: DM Sans;
-      }
-
-      .navbar .dropdown-toggle::after {
-        display: none !important;
-      }
-
-      header{
-        padding: 8px;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/waterDataAnalysis.css') }}">
+    <script src="{{ url_for('static', filename='js/waterDataAnalysis.js') }}"></script>
   </head>
   <body>
     <section class="header_section">

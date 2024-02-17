@@ -22,19 +22,9 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <style>
-      body {
-        font-family: DM Sans;
-      }
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/airDataAnalysis.css') }}">
+    <script src="{{ url_for('static', filename='js/airDataAnalysis.js') }}"></script>
 
-      .navbar .dropdown-toggle::after {
-        display: none !important;
-      }
-
-      header{
-        padding: 8px;
-      }
-    </style>
   </head>
   <body>
     <section class="header_section">
