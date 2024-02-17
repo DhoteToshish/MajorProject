@@ -348,14 +348,14 @@
               <ul class="navbar-nav me-auto mb-2 mb-lg-0 ml-auto">
                 <!-- Utilizing ml-auto class -->
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="working"
+                  <a class="nav-link active" aria-current="page" href="{{url_for('working')}}"
                     >Working</a
                   >
                 </li>
                 <li class="nav-item dropdown">
                   <a
                     class="nav-link dropdown-toggle active"
-                    href="#"
+                    
                     id="navbarDropdown"
                     role="button"
                     data-toggle="dropdown"
@@ -368,13 +368,13 @@
                     <a
                       class="dropdown-item"
                       id="air_pollution_YearList"
-                      
+                      href = "{{ url_for('air_dataset_yearlist') }}"
                       >Air</a
                     >
-                    <a class="dropdown-item"   id="waterDataSetYearList"
+                    <a class="dropdown-item"   id="waterDataSetYearList" href="{{ url_for('water_dataset_yearlist') }}"
                       >Water</a
                     >
-                    <a class="dropdown-item"   id="noiseDataSetYearList"
+                    <a class="dropdown-item"   id="noiseDataSetYearList" href="{{ url_for('noise_dataset_yearlist') }}"
                       >Noise</a
                     >
                   </div>
@@ -382,7 +382,6 @@
                 <li class="nav-item dropdown">
                   <a
                     class="nav-link dropdown-toggle active"
-                    href="#"
                     id="navbarDropdown"
                     role="button"
                     data-toggle="dropdown"
@@ -392,17 +391,17 @@
                     Analysis
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" id="air_pollution_analysis" href="airDataAnalysis.html">Air</a>
-                    <a class="dropdown-item" id="water_pollution_analysis" href="waterDataAnalysis.html"
+                    <a class="dropdown-item" id="air_pollution_analysis" href="{{ url_for('air_data_analysis') }}">Air</a>
+                    <a class="dropdown-item" id="water_pollution_analysis" href="{{ url_for('water_data_analysis') }}"
                       >Water</a
                     >
-                    <a class="dropdown-item" id="noise_pollution_analysis" href="noiseDataAnalysis.html"
+                    <a class="dropdown-item" id="noise_pollution_analysis" href="{{ url_for('noise_data_analysis') }}"
                       >Noise</a
                     >
                   </div>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" href="#">About Us</a>
+                  <a class="nav-link active" href="{{url_for('AboutUs')}}">About Us</a>
                 </li>
               </ul>
             </div>
