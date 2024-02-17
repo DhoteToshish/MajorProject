@@ -22,30 +22,28 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/noiseDataSetYearList.css') }}">
-    <script src="{{ url_for('static', filename='js/noiseDataSetYearList.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/airDataSetYearList.css') }}">
+    <script src="{{ url_for('static', filename='js/airDataSetYearList.js') }}"></script>
   </head>
   <body>
     <section class="header_section">
       <header>
-                
-
         <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
           <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0 ml-auto">
-                <!-- Utilizing ml-auto class -->
+               
                 <li class="nav-item">
                   <a
                     class="nav-link active"
                     id="Home"
                     aria-current="page"
-                    href="home.html"
+                    href="{{url_for('home')}}"
                     >Home</a
                   >
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#"
+                  <a class="nav-link active" aria-current="page" href="{{url_for('working')}}"
                     >Working</a
                   >
                 </li>
@@ -65,13 +63,13 @@
                     <a
                       class="dropdown-item"
                       id="air_pollution_YearList"
-                      href="airDataSetYearList.html"
+                      href="{{ url_for('air_dataset_yearlist') }}"
                       >Air</a
                     >
-                    <a class="dropdown-item" id="water_pollution" href="waterDataSetYearList.html"
+                    <a class="dropdown-item" id="water_pollution" href="{{ url_for('water_dataset_yearlist') }}"
                       >Water</a
                     >
-                    <a class="dropdown-item" id="noise_pollution" href="noiseDataSetYearList.html"
+                    <a class="dropdown-item" id="noise_pollution" href="{{ url_for('noise_dataset_yearlist') }}"
                       >Noise</a
                     >
                   </div>
@@ -89,17 +87,17 @@
                     Analysis
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" id="air_pollution" href="airDataAnalysis.html">Air</a>
-                    <a class="dropdown-item" id="water_pollution" href="waterDataAnalysis.html"
+                    <a class="dropdown-item" id="air_pollution" href="{{ url_for('air_data_analysis') }}">Air</a>
+                    <a class="dropdown-item" id="water_pollution" href="{{ url_for('water_data_analysis') }}"
                       >Water</a
                     >
-                    <a class="dropdown-item" id="noise_pollution" href="noiseDataAnalysis.html"
+                    <a class="dropdown-item" id="noise_pollution" href="{{ url_for('noise_data_analysis') }}"
                       >Noise</a
                     >
                   </div>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" href="#">About Us</a>
+                  <a class="nav-link active" href="{{url_for('AboutUs')}}">About Us</a>
                 </li>
               </ul>
             </div>
@@ -108,6 +106,6 @@
       </header>
     </section>
 
-    <p>Noise</p>
+    <p>Noise year list</p>
   </body>
 </html>
