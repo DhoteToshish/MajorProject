@@ -409,9 +409,9 @@
     </section>
 
     <section class="project_title_section">
-      <img src="./images/air_pollution.jpg" alt="Image 1" />
-      <img src="./images/noise_pollution1.jpg" alt="Image 2" />
-      <img src="./images/water_pollution1.avif" alt="Image 3" />
+      <img src="{{ url_for('static', filename='air_pollution.jpg') }}" alt="Image 1" />
+      <img src="{{ url_for('static', filename='noise_pollution1.jpg') }}" alt="Image 2" />
+      <img src="{{ url_for('static', filename='water_pollution1.avif') }}" alt="Image 3" />
       <div>
         <p class="project_title">
           PREDICTION OF AIR, WATER AND NOISE POLLUTION<br />
