@@ -6,6 +6,10 @@ app = Flask(__name__, static_folder='static')
 def home():
     data = load_data()
     return render_template("home.html", data=data)
+
+@app.route("/working")
+def wokring():
+    return render_template("working.html")
     
 if __name__ == "__main__":
     app.run(debug=True)
