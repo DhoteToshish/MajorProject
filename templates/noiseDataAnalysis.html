@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css?family=DM Sans"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+      body {
+        font-family: DM Sans;
+      }
+
+      .navbar .dropdown-toggle::after {
+        display: none !important;
+      }
+
+      header{
+        padding: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="header_section">
+      <header>
+        <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+          <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0 ml-auto">
+                <!-- Utilizing ml-auto class -->
+                <li class="nav-item">
+                  <a
+                    class="nav-link active"
+                    id="Home"
+                    aria-current="page"
+                    href="home.html"
+                    >Home</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#"
+                    >Working</a
+                  >
+                </li>
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle active"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Dataset
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a
+                      class="dropdown-item"
+                      id="air_pollution_YearList"
+                      href="airDataSetYearList.html"
+                      >Air</a
+                    >
+                    <a class="dropdown-item" id="water_pollution" href="waterDataSetYearList.html"
+                      >Water</a
+                    >
+                    <a class="dropdown-item" id="noise_pollution" href="noiseDataSetYearList.html"
+                      >Noise</a
+                    >
+                  </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle active"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Analysis
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" id="air_pollution" href="airDataAnalysis.html">Air</a>
+                    <a class="dropdown-item" id="water_pollution" href="waterDataAnalysis.html"
+                      >Water</a
+                    >
+                    <a class="dropdown-item" id="noise_pollution" href="noiseDataAnalysis.html"
+                      >Noise</a
+                    >
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">About Us</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+    </section>
+
+    <p>AIR</p>
+  </body>
+</html>
