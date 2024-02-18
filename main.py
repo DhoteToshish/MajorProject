@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from data_processing import load_data
+import pandas as pd
 app = Flask(__name__, static_folder='static')
 
 @app.route("/")
@@ -21,7 +22,9 @@ def noise_data_analysis():
 
 @app.route("/air_dataset_yearlist")
 def air_dataset_yearlist():
-    return render_template("airDataSetYearList.html")
+    data = load_data()
+    print("data", data)
+    return render_template("airDataSetYearList.html", data=data)
 
 @app.route("/water_dataset_yearlist")
 def water_dataset_yearlist():

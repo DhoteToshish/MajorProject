@@ -3,18 +3,6 @@ body {
     font-family: 'DM Sans';
 }
 
-/* Header section */
-header {
-    background-color: #f4f4f4;
-    padding: 7px;
-    height: 70px;
-    position: relative;
-    box-shadow: 0px 0px 10px rgb(174, 173, 173);
-    left: 0px;
-    top: 0px;
-    right: 0px;
-}
-
 .header_navigation_container1 {
     margin-top: 2%;
     margin-left: 80%;
@@ -227,4 +215,10 @@ h3 {
 
 .navbar .dropdown-toggle::after {
     display: none !important;
+}
+
+.navbar{
+    margin-top: 8px;
+    margin-left: 8px;
+    margin-right: 8px;
 }
