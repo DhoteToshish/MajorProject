@@ -5,8 +5,7 @@ app = Flask(__name__, static_folder='static')
 
 @app.route("/")
 def home():
-    data = load_data()
-    return render_template("home.html", data=data)
+    return render_template("home.html")
 
 @app.route("/air_data_analysis")
 def air_data_analysis():
@@ -22,8 +21,7 @@ def noise_data_analysis():
 
 @app.route("/air_dataset_yearlist")
 def air_dataset_yearlist():
-    data = load_data()
-    print("data", data)
+    data = None
     return render_template("airDataSetYearList.html", data=data)
 
 @app.route("/water_dataset_yearlist")
@@ -41,7 +39,12 @@ def AboutUs():
 @app.route("/working")
 def working():
     return render_template("working.html")
-    
+
+@app.route("/air_dataset_yearlist/<year>")
+def air_dataset_year(year):
+    data = load_data(year=year)
+    print(data)
+    return render_template("airDataSetYearList.html", data=data)
     
 if __name__ == "__main__":
     app.run(debug=True)
