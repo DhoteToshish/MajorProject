@@ -30,7 +30,8 @@ def water_dataset_yearlist():
 
 @app.route("/noise_dataset_yearlist")
 def noise_dataset_yearlist():
-    return render_template("noiseDataSetYearList.html")
+    data = None
+    return render_template("noiseDataSetYearList.html", data=data)
 
 @app.route("/AboutUs")
 def AboutUs():
@@ -40,11 +41,17 @@ def AboutUs():
 def working():
     return render_template("working.html")
 
-@app.route("/air_dataset_yearlist/<year>")
-def air_dataset_year(year):
-    data = load_data(year=year)
-    print(data)
+@app.route("/air_dataset_yearlist/<year>/<type>")
+def air_dataset_year(year,type):
+    data = load_data(year=year, type=type)
+    #print(data)
     return render_template("airDataSetYearList.html", data=data)
+
+@app.route("/noise_dataset_yearlist/<year>/<type>")
+def noise_dataset_year(year,type):
+    data = load_data(year=year, type=type)
+    #print(data)
+    return render_template("noiseDataSetYearList.html", data=data)
     
 if __name__ == "__main__":
     app.run(debug=True)

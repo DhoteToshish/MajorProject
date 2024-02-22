@@ -1,7 +1,7 @@
 import pandas as pd
 
-def load_data(year):
-    data = pd.read_excel(f"xlsxFiles/{year}_Data.xlsx")
+def load_data(year, type):
+    data = pd.read_excel(f"xlsxFiles/{type}/{year}.xlsx")
     dataFrame = getDataFrame(data)
     return dataFrame
 

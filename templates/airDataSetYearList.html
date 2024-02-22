@@ -204,14 +204,18 @@
 
             <ul class="list-unstyled components">
                 <h2>Years</h2>
+            
                 <li>
-                    <a href="{{ url_for('air_dataset_year', year='2013') }}">2013</a>
+                    <a href="{{ url_for('air_dataset_year', year='2013', type='AIR') }}">2013</a>
                 </li>
                 <li>
-                    <a href="{{ url_for('air_dataset_year', year='2014') }}">2014</a>
+                    <a href="{{ url_for('air_dataset_year', year='2014', type='AIR') }}">2014</a>
                 </li>
                 <li>
-                    <a href="{{ url_for('air_dataset_year', year='2015') }}">2015</a>
+                    <a href="{{ url_for('air_dataset_year', year='2015', type='AIR') }}">2015</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('air_dataset_year', year='2016', type='AIR') }}">2016</a>
                 </li>
             </ul>
 

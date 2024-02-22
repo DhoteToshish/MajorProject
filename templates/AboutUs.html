@@ -4,8 +4,541 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link
+    href="https://fonts.googleapis.com/css?family=DM Sans"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>  
+  <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home.css') }}"> -->
+    <style>
+            body {
+      font-family: DM sans;
+     /* background:linear-gradient(#CC95C0,#DBD4B4,#7AA1D2);*/
+      background:linear-gradient(#9796f0,#fbc7d4);
+
+    .team-member {
+      display: flex;
+      align-items: center;
+      margin: 100px;
+      margin-left: 140px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .team-member.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .team-member .circle {
+      position: relative;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 20px;
+    }
+
+    .team-member .circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .team-member .circle:hover::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .team-member .circle:hover::before {
+      content: attr(data-name);
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      font-weight: bold;
+      font-size: 18px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .team-member .circle:hover::after,
+    .team-member .circle:hover::before {
+      opacity: 1;
+    }
+
+    .team-member .circle .social-icons {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .team-member .circle:hover .social-icons {
+      opacity: 1;
+    }
+
+    .team-member .circle .social-icons a {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      margin: 0 5px;
+      border-radius: 50%;
+      background-color: #fff;
+      text-align: center;
+      line-height: 30px;
+      color: #000;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .team-member .circle .social-icons a:hover {
+      background-color: #000;
+      color: #fff;
+    }
+
+    .team-member .rectangle {
+      background-color: #f5f5f5;
+      padding: 80px;
+      width: 800px;
+    }
+
+    .team-member .Name_rectangle {
+      background-color: #f5f5f5;
+      padding: 20px;
+      width: 300px;
+    }
+
+    #Mentor_Name {
+      margin-top: -80px;
+      margin-left: 160px;
+    }
+
+    #Sayyam_Name {
+      margin-top: -80px;
+      margin-left: 200px;
+    }
+
+    #Kundan_Name {
+      margin-top: -80px;
+      margin-left: 206px;
+    }
+
+    #Toshish_Name {
+      margin-top: -80px;
+      margin-left: 195px;
+    }
+
+    #Prashant_Name {
+      margin-top: -80px;
+      margin-left: 165px;
+    }
+
+    .team-member h2 {
+      text-align: center;
+      margin-top: 20px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .team-member.visible h2 {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    #aboutus{
+		color:black;
+		margin-top:30px;
+		margin-left:700px;
+		font-size:40px;
+	}
+}
+
+body{
+    background:linear-gradient(#9796f0,#fbc7d4);
+}
+header {
+	background-color:transparent;
+	color: white;
+	padding: 10px;
+}
+
+nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	/* overflow: hidden; */
+}
+
+nav li {
+	float: right;
+	margin-right:10px;
+}
+
+nav li a {
+	/* display: block; */
+	color: black;
+	/* text-align: center; */
+	/* padding: 14px 16px; */
+	text-decoration: none;
+	font-weight:bold;
+	border-bottom: 2px solid transparent; /* Add this line */
+
+  }
+
+nav li a:hover {
+	/*background-color: lightpink;*/
+	border-bottom: 2px solid black; /* Change background-color to border-bottom */
+}
+
+
+.footer {
+    background-color: #a1c4fd;
+    color: white;
+    padding: 70px;
+    text-align: center;
+    font-family: DM sans;
+    font-size: 16px;
+    margin-top: 100px;
+    border: 2px solid lightgrey;
+    /* margin-left: -6px; */
+    width: 100%;
+}
+
+.social-link {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+    margin: 0 10px;
+    text-decoration: none;
+    color: black;
+    transition: background-color 0.3s ease;
+}
+
+.social-link i {
+    font-size: 24px;
+}
+
+  .footer .social-link:hover {
+	cursor: pointer;
+}
+.footer .fa-linkedin:hover {
+	color: #0A66C2;
+}
+.footer .fa-instagram:hover {
+	background: linear-gradient(#f9ce34, #ee2a7b, #6228d7);
+	
+	-webkit-text-fill-color: transparent;
+}
+.footer .fa-google:hover {
+	color:rgb(228, 77, 77);
+}
+.footer .fa-facebook:hover {
+	color: #3b5998;
+}
+.footer .fa-twitter:hover {
+	color: #00acee;
+}
+.line {
+    font-size:20px;
+    color: rgb(35, 34, 34);
+    margin: 0 10px;
+}
+ul{
+  font-weight: bold;
+}
+
+    </style>
 </head>
 <body>
-    
+    <section class="header_section">
+        <header>
+          <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+            <div class="container-fluid">
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ml-auto">
+                  <!-- Utilizing ml-auto class -->
+                  <li class="nav-item">
+                    <a
+                      class="nav-link active"
+                      id="Home"
+                      aria-current="page"
+                      href="{{url_for('home')}}"
+                      >Home</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{url_for('working')}}"
+                      >Working</a
+                    >
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle active"
+                      
+                      id="navbarDropdown"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Dataset
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a
+                        class="dropdown-item"
+                        id="air_pollution_YearList"
+                        href = "{{ url_for('air_dataset_yearlist') }}"
+                        >Air</a
+                      >
+                      <a class="dropdown-item"   id="waterDataSetYearList" href="{{ url_for('water_dataset_yearlist') }}"
+                        >Water</a
+                      >
+                      <a class="dropdown-item"   id="noiseDataSetYearList" href="{{ url_for('noise_dataset_yearlist') }}"
+                        >Noise</a
+                      >
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle active"
+                      id="navbarDropdown"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Analysis
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" id="air_pollution_analysis" href="{{ url_for('air_data_analysis') }}">Air</a>
+                      <a class="dropdown-item" id="water_pollution_analysis" href="{{ url_for('water_data_analysis') }}"
+                        >Water</a
+                      >
+                      <a class="dropdown-item" id="noise_pollution_analysis" href="{{ url_for('noise_data_analysis') }}"
+                        >Noise</a
+                      >
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="{{url_for('AboutUs')}}">About Us</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </header>
+      </section>
+      <p id="aboutus">About Us</p>
+  <!-- Project Mentor -->
+  <div class="team-member">
+    <div class="circle">
+      <img src="/static/images/psy.png" alt="Project Mentor">
+      <div class="social-icons">
+        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+			<i class="fab fa-linkedin"></i>
+		</a>
+        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+			<i class="fab fa-facebook-f"></i>
+		</a>
+		<a href="mailto:example@example.com"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+    <div class="rectangle">
+      <h3>Project Mentor</h3>
+      <p>Associate Professor,<br>
+        Dept. of Computer Science & Engineering,<br>
+        Controller of Examination,<br>
+        Walchand Institute of Technology,<br>
+        Solapur. Maharashtra. India. <br>
+        <b>Area of Interest: Data Mining, Machine Learning, Big Data Analytics</b>
+        </p>
+    </div>
+  </div>
+  <h2 id="Mentor_Name">Dr. Pratibha C. Kaladeep</h2>
+
+  <!-- SAYYAM JAIN -->
+  <div class="team-member">
+    <div class="circle">
+      <img src="/static/images/Sayyam_Photo.jpg" alt="Team Member 1">
+     <div class="social-icons">
+        <a href="https://www.linkedin.com/in/sayyam-jain-742099218/" target="_blank" rel="noopener noreferrer">
+			<i class="fab fa-linkedin"></i>
+		</a>
+        <a href="https://www.facebook.com/sayyam.jain.503" target="_blank" rel="noopener noreferrer">
+			<i class="fab fa-facebook-f"></i>
+		</a>
+		<a href="mailto:sayyamjain400@gmail.com"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+    <div class="rectangle">
+      
+      <ul>
+        <li>
+          Frontend
+        </li>
+        <li>
+          Data Preprocessing
+        </li>
+        <li>
+          Pyhton Programming
+        </li>
+      </ul>
+    </div>
+  </div>
+  <h2 id="Sayyam_Name">Sayyam Jain</h2>
+
+
+  <!-- KUNDAN PATIL-->
+  <div class="team-member">
+    <div class="circle">
+      <img src="/static/images/kundan3.jpg" alt="Team Member 2">
+      <div class="social-icons">
+        <a href="https://www.linkedin.com/in/sayyam-jain-742099218/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.facebook.com/sayyam.jain.503" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+		<a href="mailto:sayyamjain400@gmail.com"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+    <div class="rectangle">
+      
+      <ul>
+        <li>
+          Data Collection
+        </li>
+        <li>
+          Data Analysis
+        </li>
+        <li>
+          Visualization
+        </li>
+      </ul>
+    </div>
+  </div>
+  <h2 id="Kundan_Name">Kundan Patil</h2>
+
+
+  <!-- TOSHISH DHOTE -->
+  <div class="team-member">
+    <div class="circle">
+      <img src="/static/images/toshish.jpg" alt="Team Member 3">
+        <div class="social-icons">
+        <a href="https://www.linkedin.com/in/toshish-dhote-9b100a210" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.facebook.com/toshish.dhote.3" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+		<a href="mailto:825toshish@gmail.com"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+    <div class="rectangle">
+     
+      <ul>
+        <li>
+          Backend
+        </li>
+        <li>
+          Integration
+        </li>
+        <li>
+          Middleware
+        </li>
+      </ul>
+    </div>
+  </div>
+  <h2 id="Toshish_Name">Toshish Dhote</h2>
+
+
+  <!-- PRASHANT KUMBHAR -->
+  <div class="team-member">
+    <div class="circle">
+      <img src="/static/images/prashant.jpg" alt="Team Member 4">
+      <div class="social-icons">
+        <a href="https://www.linkedin.com/in/toshish-dhote-9b100a210" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.facebook.com/toshish.dhote.3" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+		<a href="mailto:example@example.com"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+    <div class="rectangle">
+     
+      <ul>
+        <li>
+          Data Collection
+        </li>
+        <li>
+          Data Analysis
+        </li>
+        <li>
+          Visualization
+        </li>
+      </ul>
+     
+    </div>
+  </div>
+  <h2 id="Prashant_Name">Prashant Kumbhar</h2>
+
+
+  <div class="footer">
+		<a href="https://www.linkedin.com/school/walchand-institute-of-technology-solapur/"target="_blank"  class="social-link"><i class="fa fa-linkedin"></i></a>
+		<span class="line">|</span>
+		<a href="https://www.instagram.com/wit_solapur_official/" target="_blank" class="social-link"><i class="fa fa-instagram"></i></a>
+		<span class="line">|</span>
+		<a href="https://witsolapur.org/" target="_blank" class="social-link"><i class="fa fa-google"></i></a>
+		<span class="line">|</span>
+		<a href="https://www.facebook.com/witsolapur" target="_blank" class="social-link"><i class="fa fa-facebook"></i></a>
+		<span class="line">|</span>
+		<a href="https://twitter.com/SolapurWit" target="_blank" class="social-link"><i class="fa fa-twitter"></i></a>
+  </div>
+
+
+  <script src="https://kit.fontawesome.com/fbbfb9083a.js" crossorigin="anonymous"></script>
+
+  <script>
+    const teamMembers = document.querySelectorAll('.team-member');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        } else {
+          entry.target.classList.remove('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    teamMembers.forEach((member) => {
+      observer.observe(member);
+    });
+  </script>
+
+   
 </body>
 </html>
