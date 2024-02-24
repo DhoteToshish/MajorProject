@@ -24,21 +24,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/airDataSetYearList.css') }}">
     <script src="{{ url_for('static', filename='js/airDataSetYearList.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.min.js"></script>
-    <style>
-      .container {
-    display: flex;
-    justify-content: center;
-  }
-
-  #bt {
-    width: 100px; 
-    height: 100px; 
-    margin: 10px 10px; 
-    /* padding: 10px 10px; */
-  }
-    </style>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   </head>
   <body>
     <section class="header_section">
@@ -58,7 +44,7 @@
                   >
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{{working}}"
+                  <a class="nav-link active" aria-current="page" href="{{url_for('working')}}"
                     >Working</a
                   >
                 </li>
@@ -120,27 +106,19 @@
         </nav>
       </header>
     </section>
-
-
-    <div class="container">
-    <div class="dropdown" id="bt">
-      <a class="btn btn-secondary"   href="{{ url_for('insights') }}">
-        Insights
-      </a>
-      
+    <h1 style="margin-left: 10px;">PM10 Comparison Across Locations</h1>
+    <div id="so2_plot" style="margin-left: 10px;">
+        {{ data|safe }}
     </div>
-
-    <div class="dropdown" id="bt">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-        Comparative Analysis
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="#">SO2</a></li>
-        <li><a class="dropdown-item" href="#">NO2</a></li>
-        <li><a class="dropdown-item" href="#">PM10</a></li>
-      </ul>
+    <div style="padding: 30px;">
+        The graph titled “Mean Annual Average PM10 Levels Across Different States/UT” provides insights into the mean annual average particulate matter (PM10) levels in various Indian states and union territories. Here are the key details:
+         <ul class="list-group">
+            <li class="list-group-item">1.	The x-axis represents the mean PM10 levels, ranging from 0 to 200.</li>
+            <li class="list-group-item">2.	The y-axis lists the names of different states and union territories.</li>
+            <li class="list-group-item">3.	Each state or UT is represented by a blue bar extending to the right, indicating its respective mean annual average PM10 level.</li>
+            <li class="list-group-item">4.	Delhi has the longest bar, indicating it has the highest mean PM10 level among the listed regions.</li>
+            <li class="list-group-item">5.	Manipur has one of the shortest bars, showing it has one of the lowest levels of mean annual average PM10.</li>
+          </ul>
     </div>
-  </div>
-
   </body>
 </html>
