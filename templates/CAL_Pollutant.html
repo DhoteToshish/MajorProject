@@ -106,19 +106,24 @@
         </nav>
       </header>
     </section>
-    <h1 style="margin-left: 10px;">NO2 Comparison Across Locations</h1>
+    <h1 style="margin-left: 10px;">{{pollutant}} Comparison Across Locations</h1>
     <div id="so2_plot" style="margin-left: 10px;">
         {{ data|safe }}
     </div>
     <div style="padding: 30px;">
-        The graph titled “Mean Annual Average NO2 Levels Across Different States/UT” illustrates the mean annual average nitrogen dioxide (NO2) levels in various Indian states and union territories. Here are the key details:
-        <ul class="list-group">
-            <li class="list-group-item">1.	The x-axis represents the mean NO2 levels, ranging from 0 to 60.</li>
+        The graph titled “Mean Annual Average {{ pollutant }} Levels Across Different States/UT” illustrates the mean annual average sulfur dioxide ({{ pollutant }}) levels in various Indian states and union territories. Here are the key details:
+        <!-- <ul class="list-group">
+            <li class="list-group-item">1.	The x-axis represents the mean SO2 levels, ranging from 0 to 20.</li>
             <li class="list-group-item">2.	The y-axis lists the names of different states and union territories.</li>
-            <li class="list-group-item">3.	Each state or UT is represented by a blue bar extending to the right, indicating its respective mean annual average NO2 level.</li>
-            <li class="list-group-item">4.	Delhi has the highest recorded mean annual average NO2 level, followed by Jharkhand and Haryana.</li>
-            <li class="list-group-item">5.	Lakshadweep has the lowest m5.	Lakshadweep has one of the lowest mean annual average NO2 levels on this graph.</li>
-          </ul>
+            <li class="list-group-item">3.	Each state or UT is represented by a blue bar extending to the right, indicating its respective mean annual average SO2 level.</li>
+            <li class="list-group-item">4.	Jharkhand has the highest recorded mean annual average SO2 level, followed by Daman & Diu, Dadra & Nagar Haveli, and others.</li>
+            <li class="list-group-item">5.	Lakshadweep has the lowest mean annual average SO2 level on this graph.</li>
+        </ul> -->
+        <ul class="list-group">
+                {% for sentence in sentences %}
+                    <li class="list-group-item">{{ loop.index }}. {{sentence}}</li>
+                {% endfor %}
+        </ul>
     </div>
   </body>
 </html>

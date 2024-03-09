@@ -120,9 +120,9 @@
              Comparison Across Locations
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="{{url_for('CALSO2')}}">SO2</a></li>
-            <li><a class="dropdown-item" href="{{url_for('CALNO2')}}">NO2</a></li>
-            <li><a class="dropdown-item" href="{{url_for('CALPM10')}}">PM10</a></li>
+            <li><a class="dropdown-item" href="{{url_for('comparisonsAcrossLocations', pollutant='SO2')}}">SO2</a></li>
+            <li><a class="dropdown-item" href="{{url_for('comparisonsAcrossLocations', pollutant='NO2')}}">NO2</a></li>
+            <li><a class="dropdown-item" href="{{url_for('comparisonsAcrossLocations', pollutant='PM10')}}">PM10</a></li>
           </ul>
         </div>
 

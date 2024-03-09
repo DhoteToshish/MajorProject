@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from data_processing import load_data, comparisonAcrossLocationsSO2, comparisonAcrossLocationsNO2, comparisonAcrossLocationsPM10
+from data_processing import comparisonAcrossLocations,load_data
 import pandas as pd
 app = Flask(__name__, static_folder='static')
 
@@ -44,34 +44,21 @@ def working():
 @app.route("/air_dataset_yearlist/<year>/<type>")
 def air_dataset_year(year,type):
     data = load_data(year=year, type=type)
-    #print(data)
     return render_template("airDataSetYearList.html", data=data)
 
 @app.route("/noise_dataset_yearlist/<year>/<type>")
 def noise_dataset_year(year,type):
     data = load_data(year=year, type=type)
-    #print(data)
     return render_template("noiseDataSetYearList.html", data=data)
 
 @app.route("/insights")
 def insights():
     return render_template("insights.html")
 
-@app.route("/comparisonAcrossLocationsSO2")
-def CALSO2():
-    data = comparisonAcrossLocationsSO2()
-    return render_template("CAL_SO2.html", data = data)
-
-@app.route("/comparisonAcrossLocationsNO2")
-def CALNO2():
-    data = comparisonAcrossLocationsNO2()
-    return render_template("CAL_NO2.html", data = data)
-
-
-@app.route("/comparisonAcrossLocationsPM10")
-def CALPM10():
-    data = comparisonAcrossLocationsPM10()
-    return render_template("CAL_PM10.html", data = data)
+@app.route("/comparisonAcrossLocations/<pollutant>")
+def comparisonsAcrossLocations(pollutant):
+    data = comparisonAcrossLocations(pollutant=pollutant)
+    return render_template("CAL_Pollutant.html", data = data[0], pollutant = data[1], sentences = data[2] )
 
 
 if __name__ == "__main__":
