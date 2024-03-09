@@ -7,17 +7,26 @@ app = Flask(__name__, static_folder='static')
 def home():
     return render_template("home.html")
 
-@app.route("/air_data_analysis")
-def air_data_analysis():
-    return render_template("airDataAnalysis.html")
+# @app.route("/air_data_analysis")
+# def air_data_analysis():
+#     return render_template("airDataAnalysis.html")
 
-@app.route("/water_data_analysis")
-def water_data_analysis():
-    return render_template("waterDataAnalysis.html")
+# @app.route("/water_data_analysis")
+# def water_data_analysis():
+#     return render_template("waterDataAnalysis.html")
 
-@app.route("/noise_data_analysis")
-def noise_data_analysis():
-    return render_template("noiseDataAnalysis.html")
+# @app.route("/noise_data_analysis")
+# def noise_data_analysis():
+#     return render_template("noiseDataAnalysis.html")
+
+@app.route("/data_analysis/<type>")
+def data_analysis(type):
+    if type == 'air':
+        return render_template("airDataAnalysis.html")
+    elif type == 'water':
+        return render_template("waterDataAnalysis.html")
+    elif type== 'noise':
+        return render_template("noiseDataAnalysis.html")
 
 @app.route("/air_dataset_yearlist")
 def air_dataset_yearlist():

@@ -343,11 +343,11 @@ ul{
                       Analysis
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" id="air_pollution_analysis" href="{{ url_for('air_data_analysis') }}">Air</a>
-                      <a class="dropdown-item" id="water_pollution_analysis" href="{{ url_for('water_data_analysis') }}"
+                      <a class="dropdown-item" id="air_pollution_analysis" href="{{ url_for('data_analysis', type = 'air') }}">Air</a>
+                      <a class="dropdown-item" id="water_pollution_analysis" href="{{ url_for('data_analysis', type = 'water') }}"
                         >Water</a
                       >
-                      <a class="dropdown-item" id="noise_pollution_analysis" href="{{ url_for('noise_data_analysis') }}"
+                      <a class="dropdown-item" id="noise_pollution_analysis" href="{{ url_for('data_analysis', type = 'noise') }}"
                         >Noise</a
                       >
                     </div>
