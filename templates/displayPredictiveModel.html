@@ -22,9 +22,55 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/airDataSetYearList.css') }}">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/airDataSetYearList.css') }}"
+    />
     <script src="{{ url_for('static', filename='js/airDataSetYearList.js') }}"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+      .styled-table {
+        border-collapse: collapse;
+        /* margin: 25px 0; */
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+      }
+
+      .styled-table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+      }
+
+      .styled-table th,
+      .styled-table td {
+        padding: 12px 15px;
+      }
+
+      .styled-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+      }
+
+      .styled-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+      }
+
+      .styled-table tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+      }
+
+      .styled-table tbody tr.active-row {
+        font-weight: bold;
+        color: #009879;
+      }
+      
+    </style>
   </head>
   <body>
     <section class="header_section">
@@ -33,7 +79,6 @@
           <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0 ml-auto">
-               
                 <li class="nav-item">
                   <a
                     class="nav-link active"
@@ -44,7 +89,10 @@
                   >
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{{url_for('working')}}"
+                  <a
+                    class="nav-link active"
+                    aria-current="page"
+                    href="{{url_for('working')}}"
                     >Working</a
                   >
                 </li>
@@ -67,10 +115,16 @@
                       href="{{ url_for('air_dataset_yearlist') }}"
                       >Air</a
                     >
-                    <a class="dropdown-item" id="water_pollution" href="{{ url_for('water_dataset_yearlist') }}"
+                    <a
+                      class="dropdown-item"
+                      id="water_pollution"
+                      href="{{ url_for('water_dataset_yearlist') }}"
                       >Water</a
                     >
-                    <a class="dropdown-item" id="noise_pollution" href="{{ url_for('noise_dataset_yearlist') }}"
+                    <a
+                      class="dropdown-item"
+                      id="noise_pollution"
+                      href="{{ url_for('noise_dataset_yearlist') }}"
                       >Noise</a
                     >
                   </div>
@@ -88,17 +142,30 @@
                     Analysis
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" id="air_pollution" href="{{ url_for('data_analysis', type = 'air') }}">Air</a>
-                    <a class="dropdown-item" id="water_pollution" href="{{ url_for('data_analysis' ,type = 'water') }}"
+                    <a
+                      class="dropdown-item"
+                      id="air_pollution"
+                      href="{{ url_for('data_analysis', type = 'air') }}"
+                      >Air</a
+                    >
+                    <a
+                      class="dropdown-item"
+                      id="water_pollution"
+                      href="{{ url_for('data_analysis' ,type = 'water') }}"
                       >Water</a
                     >
-                    <a class="dropdown-item" id="noise_pollution" href="{{ url_for('data_analysis' , type = 'noise') }}"
+                    <a
+                      class="dropdown-item"
+                      id="noise_pollution"
+                      href="{{ url_for('data_analysis' , type = 'noise') }}"
                       >Noise</a
                     >
                   </div>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" href="{{url_for('AboutUs')}}">About Us</a>
+                  <a class="nav-link active" href="{{url_for('AboutUs')}}"
+                    >About Us</a
+                  >
                 </li>
               </ul>
             </div>
@@ -106,67 +173,86 @@
         </nav>
       </header>
     </section>
-    <h1 style="margin-left: 10px;">{{heading}}</h1>
-    <div id="so2_plot" style="margin-left: 10px;">
-        {{ data|safe }}
-    </div>
-    <div style="padding: 30px;">
-        <ul class="list-group">
-                {% for sentence in sentences %}
-                    <li class="list-group-item">{{ loop.index }}. {{sentence}}</li>
-                {% endfor %}
-        </ul>
+    <h1 style="margin-left: 10px">{{heading}}</h1>
+    <div id="so2_plot" style="margin-left: 10px">{{ data|safe }}</div>
+    <div style="padding: 30px">
+      <ul class="list-group">
+        {% for sentence in sentences %}
+        <li class="list-group-item">{{ loop.index }}. {{sentence}}</li>
+        {% endfor %}
+      </ul>
     </div>
     <div>
-        {% if df is not none%}
-        <table>
+      {% if df is not none%}
+
+
+          <table class="styled-table">
             <thead>
-                <tr>
-                    <th data-field="id" data-sortable="true">Sr.No</th>
-                    <th>Model</th>
-                    <th>{{modelTorender}}</th>
-                </tr>
+              <tr>
+                <th data-field="id" data-sortable="true">Sr.No</th>
+                <th>Model</th>
+                <th>{{modelTorender}}</th>
+              </tr>
             </thead>
             <tbody>
-                {% for index, row in df.iterrows() %}
-                <tr>
-                    <td>{{ index  }}</td>
-                    <td>{{ row['Model'] }}</td>
-                    <td>{{ row[modelTorender] }}</td>
-                </tr>
-                {% endfor %}
+              <!-- {% for index, row in df.iterrows() %}
+                    <tr class="active-row">
+                        <td>{{ index  }}</td>
+                        <td>{{ row['Model'] }}</td>
+                        <td>{{ row[modelTorender] }}</td>
+                    </tr>
+                    {% endfor %} -->
+    
+              {% for index, row in df.iterrows() %} {% if loop.index is even %}
+              <tr class="active-row">
+                {% else %}
+              </tr>
+    
+              <tr>
+                {% endif %}
+                <td>{{ index }}</td>
+                <td>{{ row['Model'] }}</td>
+                <td>{{ row[modelTorender] }}</td>
+              </tr>
+              {% endfor %}
             </tbody>
-        </table>
-        {% endif %}
+          </table>
 
-
-        {% if metric_df is not none%}
-        <table>
+      {% endif %}
+      
+      {% if metric_df is not none%}
+      
+          <table class="styled-table">
             <thead>
-                <tr>
-                    <th data-field="id" data-sortable="true">Sr.No</th>
-                    <th>Model</th>
-                    <th>MAE</th>
-                    <th>RMSE</th>
-                    <th>MSE</th>
-                    <th>R-squared</th>
-                </tr>
+              <tr>
+                <th data-field="id" data-sortable="true">Sr.No</th>
+                <th>Model</th>
+                <th>MAE</th>
+                <th>RMSE</th>
+                <th>MSE</th>
+                <th>R-squared</th>
+              </tr>
             </thead>
             <tbody>
-                {% for index, row in metric_df.iterrows() %}
-                <tr>
-                    <td>{{ index  }}</td>
-                    <td>{{ row['Model'] }}</td>
-                    <td>{{ row['MAE'] }}</td>
-                    <td>{{ row['RMSE'] }}</td>
-                    <td>{{ row['MSE'] }}</td>
-                    <td>{{ row['R-squared'] }}</td>   
-                </tr>
-                {% endfor %}
+              {% for index, row in metric_df.iterrows() %} {% if loop.index is even
+              %}
+              <tr class="active-row">
+                {% else %}
+              </tr>
+    
+              <tr>
+                {% endif %}
+                <td>{{ index }}</td>
+                <td>{{ row['Model'] }}</td>
+                <td>{{ row['MAE'] }}</td>
+                <td>{{ row['RMSE'] }}</td>
+                <td>{{ row['MSE'] }}</td>
+                <td>{{ row['R-squared'] }}</td>
+              </tr>
+              {% endfor %}
             </tbody>
-        </table>
-        {% endif %}
-
+          </table>
+      {% endif %}
     </div>
   </body>
 </html>
