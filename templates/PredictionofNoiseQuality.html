@@ -116,18 +116,23 @@
 
     <div class="container">
       <div class="dropdown dropend" id="bt">
-        <a class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" aria-expanded="false" href="{{ url_for('insightsOfNoise') }}">
-          Insights
-        </a>
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          Prediction of Models for given matrices
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="{{url_for('getPredictiveModelOfNoise', model = 'MAE')}}">MAE</a></li>
+          <li><a class="dropdown-item" href="{{url_for('getPredictiveModelOfNoise', model = 'MSE')}}">MSE</a></li>
+          <li><a class="dropdown-item" href="{{url_for('getPredictiveModelOfNoise', model = 'RMSE')}}">RMSE</a></li>
+          <li><a class="dropdown-item" href="{{url_for('getPredictiveModelOfNoise', model = 'R-squared')}}">R-Squared</a></li>
+        </ul>
       </div>
-      
+
       <div class="dropdown dropend" id="bt">
-        <a class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" aria-expanded="false" href="{{ url_for('PredictionofNoiseQuality') }}">
-          Prediction of Noise Pollution
+        <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" aria-expanded="false" href="{{ url_for('ComparativeAnalysisOfNoise') }}">
+          Comparative Analysis
         </a>
+        
       </div>
-    </div>
-      
     </div>
   </body>
 </html>

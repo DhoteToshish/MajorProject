@@ -115,19 +115,22 @@
     </section>
 
     <div class="container">
-      <div class="dropdown dropend" id="bt">
-        <a class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" aria-expanded="false" href="{{ url_for('insightsOfNoise') }}">
-          Insights
-        </a>
-      </div>
-      
-      <div class="dropdown dropend" id="bt">
-        <a class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" aria-expanded="false" href="{{ url_for('PredictionofNoiseQuality') }}">
-          Prediction of Noise Pollution
-        </a>
-      </div>
+        <div class="dropdown dropend" id="bt">
+            <a  class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" aria-expanded="false" href="{{url_for('DiurnalLimitsTrend')}}">
+                <!-- Yearly trends of Day and Night Limits -->
+                Diurnal Limits Trend
+            </a>
+        </div>
+
+        <div class="dropdown dropend" id="bt">
+            <a  class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" aria-expanded="false" href="{{url_for('DisparityAcrossAreaForNoise')}}">
+                <!-- Comaprison of day and night limits between different types of areas  -->
+                Day-Night Limits Disparity across Areas
+            </a>
+        </div>
+
+        
     </div>
-      
-    </div>
+    
   </body>
 </html>

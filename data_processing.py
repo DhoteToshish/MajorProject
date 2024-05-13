@@ -15,6 +15,7 @@ from sklearn.neighbors import KNeighborsRegressor
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+from math import sqrt
 app = dash.Dash(__name__)
 
 
@@ -672,3 +673,267 @@ def ComparativeAnalysisOfWaterModel():
         metric_df.loc[len(metric_df)+1] = [model] + metric_values
 
     return [fig.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), "Comparative Performance of Prediction Models", sentences,'', '',metric_df]
+
+def DiurnalLimitsTrendOfNoise():
+    df = pd.read_excel("xlsxFiles/NOISE/noise_pollution_dataset.xlsx")
+
+    # Convert 'Year', 'Month', 'DayLimit', and 'NightLimit' columns to datetime
+    df['Date'] = pd.to_datetime(df[['Year', 'Month']].assign(day=1))
+
+    # Group by month and calculate mean day and night limits
+    monthly_mean = df.groupby('Date').agg({'DayLimit': 'mean', 'NightLimit': 'mean'}).reset_index()
+
+    # Plotting with Plotly
+    trace1 = go.Scatter(x=monthly_mean['Date'], y=monthly_mean['DayLimit'], mode='lines', name='Day Limit')
+    trace2 = go.Scatter(x=monthly_mean['Date'], y=monthly_mean['NightLimit'], mode='lines', name='Night Limit')
+
+    layout = go.Layout(title='Yearly Trends of Day and Night Limits',
+                    xaxis=dict(title='Date'),
+                    yaxis=dict(title='Limit'))
+
+    fig = go.Figure(data=[trace1, trace2], layout=layout)
+    sentences = []
+    return [fig.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), 'Yearly Trends of Day and Night Limits', sentences]
+
+def disparityAcrossAreaForNoise():
+    df = pd.read_excel("xlsxFiles/NOISE/noise_pollution_dataset.xlsx")
+
+    # Group by Type (Residential, Commercial, Industrial, Silence) and calculate mean day and night limits
+    type_mean = df.groupby('Type').agg({'DayLimit': 'mean', 'NightLimit': 'mean'}).reset_index()
+
+    # Plotting with Plotly
+    trace1 = go.Bar(x=type_mean['Type'], y=type_mean['DayLimit'], name='Day Limit', marker=dict(color='blue'))
+    trace2 = go.Bar(x=type_mean['Type'], y=type_mean['NightLimit'], name='Night Limit', marker=dict(color='red'))
+
+    layout = go.Layout(title='Comparison of Day and Night Limits between Different Types of Areas',
+                    xaxis=dict(title='Area Type'),
+                    yaxis=dict(title='Limit'),
+                    barmode='group')
+    
+    fig = go.Figure(data=[trace1, trace2], layout=layout)
+    sentences = []
+    return [fig.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), 'Comparison of Day and Night Limits between Different Types of Areas', sentences]
+
+
+def GetPredictiveModelOfNoise(modelTorender):
+    # Load the dataset
+    data = pd.read_excel("xlsxFiles/NOISE/noise_pollution_dataset.xlsx")
+    data.dropna(subset=['Day', 'Night'], inplace=True)
+    # Prepare the data
+    X = data.drop(columns=["Station", "Name", "City", "State", "Type", "Year", "Month", "Day", "Night"])
+    y_day = data["Day"]
+    y_night = data["Night"]
+
+    # Split the data into training and testing sets
+    X_train, X_test, y_train_day, y_test_day, y_train_night, y_test_night = train_test_split(X, y_day, y_night, test_size=0.2, random_state=42)
+
+    # Define models
+    models = {
+        "Random Forest": RandomForestRegressor(),
+        "Support Vector Machine": SVR(),
+        "K-Nearest Neighbors": KNeighborsRegressor(),
+        "Decision Trees": DecisionTreeRegressor(),
+        "Multi-Linear Regression": LinearRegression()
+    }
+
+    # Create lists to store results
+    results = []
+
+    # Train and evaluate models
+    for name, model in models.items():
+        # Train the model for daytime
+        model.fit(X_train, y_train_day)
+        
+        # Make predictions for daytime
+        y_pred_day = model.predict(X_test)
+        
+        # Evaluate the model for daytime
+        mse_day = mean_squared_error(y_test_day, y_pred_day)
+        rmse_day = sqrt(mse_day)
+        mae_day = mean_absolute_error(y_test_day, y_pred_day)
+        r2_day = r2_score(y_test_day, y_pred_day)
+        
+        # Train the model for nighttime
+        model.fit(X_train, y_train_night)
+        y_pred_night = model.predict(X_test)
+        
+        # Evaluate the model for nighttime
+        mse_night = mean_squared_error(y_test_night, y_pred_night)
+        rmse_night = sqrt(mse_night)
+        mae_night = mean_absolute_error(y_test_night, y_pred_night)
+        r2_night = r2_score(y_test_night, y_pred_night)
+        
+        # Append results to the list
+        results.append({
+            "Model": name,
+            "Daytime MSE": mse_day,
+            "Daytime RMSE": rmse_day,
+            "Daytime MAE": mae_day,
+            "Daytime R-squared": r2_day,
+            "Nighttime MSE": mse_night,
+            "Nighttime RMSE": rmse_night,
+            "Nighttime MAE": mae_night,
+            "Nighttime R-squared": r2_night
+        })
+
+    # Create DataFrame from results
+    results_df = pd.DataFrame(results)
+
+    HeadTitle = ''
+    if modelTorender == "MAE":
+        HeadTitle = 'Mean Absolute Error (MAE) of Prediction Models'
+    elif modelTorender == 'RMSE':
+        HeadTitle = 'Root Mean Squared Error (RMSE) of Prediction Models'
+    elif modelTorender == "MSE":
+        HeadTitle = 'Mean Squared Error (MSE) of Prediction Models'
+    else:
+        HeadTitle = 'R-squared (R2) of Prediction Models'
+
+    fig_rmse = go.Figure()
+    for index, row in results_df.iterrows():
+        show_legend_daytime = index == 0
+        show_legend_nighttime = index == 0
+        fig_rmse.add_trace(go.Bar(
+            x=[row['Model']],
+            y=[row[f'Daytime {modelTorender}']],
+            name=f'Daytime {modelTorender}' if show_legend_daytime else '',
+            marker_color='rgb(55, 83, 109)',
+            showlegend=show_legend_daytime
+        ))
+        fig_rmse.add_trace(go.Bar(
+            x=[row['Model']],
+            y=[row[f'Nighttime {modelTorender}']],
+            name=f'Nighttime {modelTorender}' if show_legend_nighttime else '',
+            marker_color='rgb(26, 118, 255)',
+            showlegend=show_legend_nighttime
+        ))
+    fig_rmse.update_layout(title=HeadTitle,
+                        xaxis_title='Model',
+                        yaxis_title=modelTorender,
+                        barmode='group')
+    sentences = []
+    
+    df  = results_df.loc[:, ["Model", f"Daytime {modelTorender}", f"Nighttime {modelTorender}"]]
+
+    print(df)
+
+    return [fig_rmse.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), HeadTitle, sentences,df, modelTorender, None, df]
+
+def ComparativeAnalysisOfNoiseModel():
+    data = pd.read_excel("xlsxFiles/NOISE/noise_pollution_dataset.xlsx")
+    data.dropna(subset=['Day', 'Night'], inplace=True)
+
+    # Prepare the data
+    X = data.drop(columns=["Station", "Name", "City", "State", "Type", "Year", "Month", "Day", "Night"])
+    y_day = data["Day"]
+    y_night = data["Night"]
+
+    # Split the data into training and testing sets
+    X_train, X_test, y_train_day, y_test_day, y_train_night, y_test_night = train_test_split(X, y_day, y_night, test_size=0.2, random_state=42)
+
+    # Define models
+    models = {
+        "Random Forest": RandomForestRegressor(),
+        "Support Vector Machine": SVR(),
+        "K-Nearest Neighbors": KNeighborsRegressor(),
+        "Decision Trees": DecisionTreeRegressor(),
+        "Multi-Linear Regression": LinearRegression()
+    }
+
+    # Create lists to store results
+    results = []
+
+    # Train and evaluate models
+    for name, model in models.items():
+        # Train the model for daytime
+        model.fit(X_train, y_train_day)
+        
+        # Make predictions for daytime
+        y_pred_day = model.predict(X_test)
+        
+        # Evaluate the model for daytime
+        mse_day = mean_squared_error(y_test_day, y_pred_day)
+        rmse_day = sqrt(mse_day)
+        mae_day = mean_absolute_error(y_test_day, y_pred_day)
+        r2_day = r2_score(y_test_day, y_pred_day)
+        
+        # Train the model for nighttime
+        model.fit(X_train, y_train_night)
+        y_pred_night = model.predict(X_test)
+        
+        # Evaluate the model for nighttime
+        mse_night = mean_squared_error(y_test_night, y_pred_night)
+        rmse_night = sqrt(mse_night)
+        mae_night = mean_absolute_error(y_test_night, y_pred_night)
+        r2_night = r2_score(y_test_night, y_pred_night)
+        
+        # Calculate mean metrics
+        mean_rmse = (rmse_day + rmse_night) / 2
+        mean_mae = (mae_day + mae_night) / 2
+        mean_mse = (mse_day + mse_night) / 2
+        mean_r2 = (r2_day + r2_night) / 2
+        
+        # Append results to the list
+        results.append({
+            "Model": name,
+            "Mean RMSE": mean_rmse,
+            "Mean MAE": mean_mae,
+            "Mean MSE": mean_mse,
+            "Mean R-squared": mean_r2
+        })
+
+    # Create DataFrame from results
+    results_df = pd.DataFrame(results)
+
+    # Find the best model for each metric
+    best_rmse_model = results_df.loc[results_df['Mean RMSE'].idxmin()]
+    best_mae_model = results_df.loc[results_df['Mean MAE'].idxmin()]
+    best_mse_model = results_df.loc[results_df['Mean MSE'].idxmin()]
+    best_r2_model = results_df.loc[results_df['Mean R-squared'].idxmax()]
+
+    # Define different colors for bars
+    colors = ['rgb(31, 119, 180)', 'rgb(255, 127, 14)', 'rgb(44, 160, 44)', 'rgb(214, 39, 40)', 'rgb(148, 103, 189)']
+
+    # Create subplots
+    fig = make_subplots(rows=2, cols=2, subplot_titles=("Mean RMSE", "Mean MAE", "Mean MSE", "Mean R-squared"))
+
+    # Add traces
+    fig.add_trace(
+        go.Bar(x=results_df['Model'], y=results_df['Mean RMSE'], marker_color=colors, name='Mean RMSE', showlegend=False),
+        row=1, col=1
+    )
+    fig.add_trace(
+        go.Bar(x=results_df['Model'], y=results_df['Mean MAE'], marker_color=colors, name='Mean MAE', showlegend=False),
+        row=1, col=2
+    )
+    fig.add_trace(
+        go.Bar(x=results_df['Model'], y=results_df['Mean MSE'], marker_color=colors, name='Mean MSE', showlegend=False),
+        row=2, col=1
+    )
+    fig.add_trace(
+        go.Bar(x=results_df['Model'], y=results_df['Mean R-squared'], marker_color=colors, name='Mean R-squared', showlegend=False),
+        row=2, col=2
+    )
+
+    # Highlight best models
+    fig.add_annotation(
+        x=best_rmse_model['Model'], y=best_rmse_model['Mean RMSE'], text='Best Model', showarrow=True, arrowhead=2, arrowcolor='red', arrowwidth=2, ax=0, ay=-40,
+        row=1, col=1
+    )
+    fig.add_annotation(
+        x=best_mae_model['Model'], y=best_mae_model['Mean MAE'], text='Best Model', showarrow=True, arrowhead=2, arrowcolor='red', arrowwidth=2, ax=0, ay=-40,
+        row=1, col=2
+    )
+    fig.add_annotation(
+        x=best_mse_model['Model'], y=best_mse_model['Mean MSE'], text='Best Model', showarrow=True, arrowhead=2, arrowcolor='red', arrowwidth=2, ax=0, ay=-40,
+        row=2, col=1
+    )
+    fig.add_annotation(
+        x=best_r2_model['Model'], y=best_r2_model['Mean R-squared'], text='Best Model', showarrow=True, arrowhead=2, arrowcolor='red', arrowwidth=2, ax=0, ay=-40,
+        row=2, col=2
+    )
+
+    # Update layout
+    fig.update_layout(height=800, width=1400, title_text="Model Performance Comparison")
+    sentences = []
+    return [fig.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), "Comparative Performance of Prediction Models", sentences,'', '',None]

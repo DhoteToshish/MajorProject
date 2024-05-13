@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from data_processing import comparisonAcrossLocations,distributionsOfPollutionLevels,OutLierDetectionOfAir,InterActiveDashBoard,ComplianceAssessmentOfWaterQuality,StateWiseDisolvedOxygenRange,StateWiseWaterPh,StateWiseWaterTemperature,getPredictivemodel,ComparativeAnalysisOfWaterModel,load_data
+from data_processing import comparisonAcrossLocations,distributionsOfPollutionLevels,OutLierDetectionOfAir,InterActiveDashBoard,ComplianceAssessmentOfWaterQuality,StateWiseDisolvedOxygenRange,StateWiseWaterPh,StateWiseWaterTemperature,getPredictivemodel,ComparativeAnalysisOfWaterModel,DiurnalLimitsTrendOfNoise,disparityAcrossAreaForNoise,GetPredictiveModelOfNoise,ComparativeAnalysisOfNoiseModel,load_data
 import pandas as pd
 app = Flask(__name__, static_folder='static')
 
@@ -116,12 +116,42 @@ def PredictionofWaterQualityIndex():
 @app.route("/getPredictiveModel/<model>")
 def getPredictiveModel(model):
     data = getPredictivemodel(model)
-    return render_template("displayPredictiveModel.html",data = data[0],heading = data[1], sentences = data[2], df = data[3],modelTorender = data[4], metric_df = None)
+    return render_template("displayPredictiveModel.html",data = data[0],heading = data[1], sentences = data[2], df = data[3],modelTorender = data[4], metric_df = None, preDictiveDf = None)
 
 
 @app.route("/ComparativeAnalysisOfWater")
 def ComparativeAnalysisOfWater():
     data = ComparativeAnalysisOfWaterModel()
-    return render_template("displayPredictiveModel.html",data = data[0],heading = data[1], sentences = data[2], df = None,modelTorender = None, metric_df = data[5])
+    return render_template("displayPredictiveModel.html",data = data[0],heading = data[1], sentences = data[2], df = None,modelTorender = None, metric_df = data[5], preDictiveDf = None)
+    
+@app.route("/insightsOfNoise")
+def insightsOfNoise():
+    return render_template("InsightsOfNoise.html")
+
+@app.route("/DiurnalLimitsTrend")
+def DiurnalLimitsTrend():
+    data = DiurnalLimitsTrendOfNoise()
+    return render_template("ComplianceAssessmentOfWaterQuality.html", data = data[0], heading = data[1], sentences = data[2])
+
+@app.route("/DisparityAcrossAreaForNoise")
+def DisparityAcrossAreaForNoise():
+    data = disparityAcrossAreaForNoise()
+    return render_template("ComplianceAssessmentOfWaterQuality.html", data = data[0], heading = data[1], sentences = data[2])
+
+@app.route("/PredictionofNoiseQuality")
+def PredictionofNoiseQuality():
+    return render_template("PredictionofNoiseQuality.html")
+
+@app.route("/getPredictiveModelOfNoise/<model>")
+def getPredictiveModelOfNoise(model):
+    data = GetPredictiveModelOfNoise(model)
+    return render_template("displayPredictiveModel.html",data = data[0],heading = data[1], sentences = data[2], df = None,modelTorender = data[4], metric_df = None, preDictiveDf = data[6])
+
+
+@app.route("/ComparativeAnalysisOfNoise")
+def ComparativeAnalysisOfNoise():
+    data = ComparativeAnalysisOfNoiseModel()
+    return render_template("displayPredictiveModel.html",data = data[0],heading = data[1], sentences = data[2], df = None,modelTorender = None, metric_df = data[5], preDictiveDf = None)
+
 if __name__ == "__main__":
     app.run(debug=True)

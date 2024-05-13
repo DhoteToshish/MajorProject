@@ -254,5 +254,36 @@
           </table>
       {% endif %}
     </div>
+
+    
+    {% if preDictiveDf is not none%}
+        <table class="styled-table">
+            <thead>
+              <tr>
+                <th data-field="id" data-sortable="true">Sr.No</th>
+                <th>Model</th>
+                <th>Daytime {{modelTorender}}</th>
+                <th>Nighttime {{modelTorender}}</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for index, row in preDictiveDf.iterrows() %} {% if loop.index is even
+                %}
+                <tr class="active-row">
+                  {% else %}
+                </tr>
+      
+                <tr>
+                  {% endif %}
+                  <td>{{ index }}</td>
+                  <td>{{ row['Model'] }}</td>
+                  <td>{{row['Daytime '+modelTorender]}}</td>
+                  <td>{{row['Nighttime '+modelTorender]}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
   </body>
 </html>
