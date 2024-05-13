@@ -937,3 +937,16 @@ def ComparativeAnalysisOfNoiseModel():
     fig.update_layout(height=800, width=1400, title_text="Model Performance Comparison")
     sentences = []
     return [fig.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), "Comparative Performance of Prediction Models", sentences,'', '',None]
+
+def getWaterDataSet():
+    df = pd.read_excel("xlsxFiles/WATER/water_quality_of_ground_water_state_wise_2019.xlsx")
+
+    numerical_columns = df.select_dtypes(include=['float64', 'int64']).columns.tolist()
+    numerical_columns = [col for col in numerical_columns if col != 'Station Code' and col!= 'Year']
+    #print("\n Numerical columns present in datasets (excluding the station code column) are as follows : \n ", numerical_columns)
+
+    df[numerical_columns] = df[numerical_columns].fillna(df[numerical_columns].mean())
+
+    df[numerical_columns] = df[numerical_columns].apply(lambda x: round(x, 1))
+
+    return df

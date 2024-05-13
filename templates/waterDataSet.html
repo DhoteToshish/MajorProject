@@ -29,10 +29,10 @@
     
         <header >
           <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark fixed-top">
-            <button type="button" id="sidebarCollapse" class="btn btn-info">
+            <!-- <button type="button" id="sidebarCollapse" class="btn btn-info">
                 <i class="btn btn-info d-inline-block d-lg-none"></i>
                 <span>Toggle</span>
-            </button>
+            </button> -->
             <div class="container-fluid">
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ml-auto">
@@ -195,8 +195,8 @@
         </header>
       </section> -->
     <div class="wrapper" >
-        <!-- Sidebar  -->
-        <nav id="sidebar" style="padding-left: 10px;">
+
+        <!-- <nav id="sidebar" style="padding-left: 10px;">
             <div class="sidebar-header">
             </div>
             <div class="sidebar-header">
@@ -221,18 +221,18 @@
 
             <ul class="list-unstyled CTAs">
             </ul>
-        </nav>
+        </nav> -->
 
         <!-- Page Content  -->
         <div id="content">
             <div class="container-fluid">
               <section style="padding: 8px;">
                 {% if data is not none%}
-                <span class="toolbar">
+                <!-- <span class="toolbar">
                   <label style="display: flex; margin-bottom: -30px;">
                     <input type="checkbox" id="sortReset" checked  /> sortReset
                   </label>
-                </span>
+                </span> -->
                 <table
                     id="table"
                     data-toggle="table"
@@ -250,42 +250,52 @@
                   <thead>
                     <tr>
                       <th data-field="id" data-sortable="true">Sr.No</th>
-                      <th data-field="State_UT" data-sortable="true">State/UT</th>
-                      <th data-field="City_Town_Village" data-sortable="true">City/Town/Village</th>
-                      <th data-field="Location" data-sortable="true">Location</th>
-                      <th data-field="No_of_Monitoring_Days_SO2" data-sortable="true">No. of Monitoring Days SO2</th>
-                      <th data-field="Minimum_SO2" data-sortable="true">Minimum SO2</th>
-                      <th data-field="Maximum_SO2" data-sortable="true">Maximum SO2</th>
-                      <th data-field="Annual_Average_SO2" data-sortable="true">Annual Average SO2</th>
-                      <th data-field="No_of_Monitoring_Days_NO2" data-sortable="true">No. of Monitoring Days NO2</th>
-                      <th data-field="Minimum_NO2" data-sortable="true">Minimum NO2</th>
-                      <th data-field="Maximum_NO2" data-sortable="true">Maximum NO2	</th>
-                      <th data-field="Annual_Average_NO2" data-sortable="true">Annual Average NO2</th>
-                      <th data-field="No_of_Monitoring_Days_PM10" data-sortable="true">No. of Monitoring Days PM10</th>
-                      <th data-field="Minimum_PM10" data-sortable="true">Minimum PM10</th>
-                      <th data-field="Maximum_PM10" data-sortable="true">Maximum PM10</th>
-                      <th data-field="Annual_Average_PM10" data-sortable="true">Annual Average PM10</th>
+                      <th data-field="State_UT" data-sortable="true">Station Code</th>
+                      <th data-field="City_Town_Village" data-sortable="true">Station Name</th>
+                      <th data-field="Location" data-sortable="true">State Name</th>
+                      <th data-field="No_of_Monitoring_Days_SO2" data-sortable="true">Temperature (Celsius) min</th>
+                      <th data-field="Minimum_SO2" data-sortable="true">Temperature (Celsius) max</th>
+                      <th data-field="Maximum_SO2" data-sortable="true"> Dissolved O2 min</th>
+                      <th data-field="Annual_Average_SO2" data-sortable="true">Dissolved O2 max</th>
+                      <th data-field="No_of_Monitoring_Days_NO2" data-sortable="true">pH min</th>
+                      <th data-field="Minimum_NO2" data-sortable="true">pH max</th>
+                      <th data-field="Maximum_NO2" data-sortable="true">Conductivity (µmhos/cm) min</th>
+                      <th data-field="Annual_Average_NO2" data-sortable="true">Conductivity (µmhos/cm) max</th>
+                      <th data-field="No_of_Monitoring_Days_PM10" data-sortable="true">B.O.D. min</th>
+                      <th data-field="Minimum_PM10" data-sortable="true">B.O.D. max</th>
+                      <th data-field="Maximum_PM10" data-sortable="true">Nitrate-N + Nitrite-N (mg/l) min</th>
+                      <th data-field="Annual_Average_PM10" data-sortable="true">Nitrate-N + Nitrite-N (mg/l) max</th>
+                      <th data-field="Annual_Average_PM10" data-sortable="true">Total Coli form (MPN/100ml) min</th>
+                      <th data-field="Annual_Average_PM10" data-sortable="true">Total Coli form (MPN/100ml) max</th>
+                      <th data-field="Annual_Average_PM10" data-sortable="true">Faecal Coli form (MPN/100ml) min</th>
+                      <th data-field="Annual_Average_PM10" data-sortable="true">Faecal Coli form (MPN/100ml) max</th>
+                      <th data-field="Annual_Average_PM10" data-sortable="true">Year</th>
                     </tr>
                   </thead>
                   <tbody>
                     {% for index, row in data.iterrows() %}
                     <tr>
                         <td>{{ index + 1 }}</td>
-                        <td>{{ row['State/UT'] }}</td>
-                        <td>{{ row['City/Town/Village'] }}</td>
-                        <td>{{ row['Location']}}</td>
-                        <td>{{ row['No. of Monitoring Days SO2'] }}</td>
-                        <td>{{ row['Minimum SO2'] }}</td>
-                        <td>{{ row['Maximum SO2'] }}</td>
-                        <td>{{ row['Annual Average SO2'] }}</td>
-                        <td>{{ row['No. of Monitoring Days NO2'] }}</td>
-                        <td>{{ row['Minimum NO2'] }}</td>
-                        <td>{{ row['Maximum NO2'] }}</td>
-                        <td>{{ row['Annual Average NO2'] }}</td>
-                        <td>{{ row['No. of Monitoring Days PM10'] }}</td>
-                        <td>{{ row['Minimum PM10'] }}</td>
-                        <td>{{ row['Maximum PM10'] }}</td>
-                        <td>{{ row['Annual Average PM10'] }}</td>
+                        <td>{{ row['Station Code'] }}</td>
+                        <td>{{ row['Station Name'] }}</td>
+                        <td>{{ row['State Name']}}</td>
+                        <td>{{ row['Temperature (Celsius) min'] }}</td>
+                        <td>{{ row['Temperature (Celsius) max'] }}</td>
+                        <td>{{ row['Dissolved O2 min'] }}</td>
+                        <td>{{ row['Dissolved O2 max'] }}</td>
+                        <td>{{ row['pH min'] }}</td>
+                        <td>{{ row['pH max'] }}</td>
+                        <td>{{ row['Conductivity (µmhos/cm) min'] }}</td>
+                        <td>{{ row['Conductivity (µmhos/cm) max'] }}</td>
+                        <td>{{ row['B.O.D. min'] }}</td>
+                        <td>{{ row['B.O.D. max'] }}</td>
+                        <td>{{ row['Nitrate-N + Nitrite-N (mg/l) min'] }}</td>
+                        <td>{{ row['Nitrate-N + Nitrite-N (mg/l) max'] }}</td>
+                        <td>{{ row['Total Coli form (MPN/100ml) min'] }}</td>
+                        <td>{{ row['Total Coli form (MPN/100ml) max'] }}</td>
+                        <td>{{ row['Faecal Coli form (MPN/100ml) min'] }}</td>
+                        <td>{{ row['Faecal Coli form (MPN/100ml) max'] }}</td>
+                        <td>{{ row['Year'] }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -333,6 +343,8 @@
 
    <script type="text/javascript">
        $(document).ready(function () {
+
+        $('#sidebar, #content').toggleClass('active');
            $("#sidebar").mCustomScrollbar({
                theme: "minimal"
            });

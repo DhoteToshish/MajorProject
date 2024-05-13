@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from data_processing import comparisonAcrossLocations,distributionsOfPollutionLevels,OutLierDetectionOfAir,InterActiveDashBoard,ComplianceAssessmentOfWaterQuality,StateWiseDisolvedOxygenRange,StateWiseWaterPh,StateWiseWaterTemperature,getPredictivemodel,ComparativeAnalysisOfWaterModel,DiurnalLimitsTrendOfNoise,disparityAcrossAreaForNoise,GetPredictiveModelOfNoise,ComparativeAnalysisOfNoiseModel,load_data
+from data_processing import comparisonAcrossLocations,distributionsOfPollutionLevels,OutLierDetectionOfAir,InterActiveDashBoard,ComplianceAssessmentOfWaterQuality,StateWiseDisolvedOxygenRange,StateWiseWaterPh,StateWiseWaterTemperature,getPredictivemodel,ComparativeAnalysisOfWaterModel,DiurnalLimitsTrendOfNoise,disparityAcrossAreaForNoise,GetPredictiveModelOfNoise,ComparativeAnalysisOfNoiseModel,getWaterDataSet,load_data
 import pandas as pd
 app = Flask(__name__, static_folder='static')
 
@@ -152,6 +152,12 @@ def getPredictiveModelOfNoise(model):
 def ComparativeAnalysisOfNoise():
     data = ComparativeAnalysisOfNoiseModel()
     return render_template("displayPredictiveModel.html",data = data[0],heading = data[1], sentences = data[2], df = None,modelTorender = None, metric_df = data[5], preDictiveDf = None)
+
+
+@app.route("/waterDataSet")
+def  waterDataSet():
+    data = getWaterDataSet()
+    return render_template("waterDataSet.html",data=data)
 
 if __name__ == "__main__":
     app.run(debug=True)
