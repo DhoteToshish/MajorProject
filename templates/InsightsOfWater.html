@@ -115,19 +115,34 @@
     </section>
 
     <div class="container">
-      <div class="dropdown dropend" id="bt">
-        <a class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" aria-expanded="false" href="{{ url_for('insightsOfWater') }}">
-          Insights
-        </a>
-      </div>
-      
-      <div class="dropdown dropend" id="bt">
-        <a class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" aria-expanded="false" href="{{ url_for('PredictionofWaterQualityIndex') }}">
-          Prediction of Water Quality Index
-        </a>
-      </div>
+        <div class="dropdown dropend" id="bt">
+            <a  class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" aria-expanded="false" href="{{url_for('ComplianceAssessmentofwaterquality')}}">
+                <!-- Compliance Assessment of water quality -->
+                Aqua Check
+            </a>
+        </div>
+
+        <div class="dropdown dropend" id="bt">
+            <a  class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" aria-expanded="false" href="{{url_for('StateWiseDORange')}}">
+                <!-- State-wise Average Minimum and maximum Dissolved oxygen  -->
+                State-Wise DO Range
+            </a>
+        </div>
+
+        <div class="dropdown dropend" id="bt">
+          <a  class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" aria-expanded="false" href="{{url_for('StateWisewaterPh')}}">
+            <!-- State-wise Average Minimum and maximum water PH  -->
+               State-Wise Water PH
+          </a>
+        </div>
+
+        <div class="dropdown dropend" id="bt">
+            <a class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" aria-expanded="false" href="{{url_for('StateWisewatertemp')}}">
+               <!-- State-wise Average Minimum and maximum water temperature  -->
+               State-Wise Water Temperature
+            </a>
+        </div>
     </div>
-      
-    </div>
+    
   </body>
 </html>

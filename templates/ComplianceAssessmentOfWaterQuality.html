@@ -24,14 +24,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/airDataSetYearList.css') }}">
     <script src="{{ url_for('static', filename='js/airDataSetYearList.js') }}"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.min.js"></script>
-    <style>
-        #bt{
-            padding: 10px;
-        }
-    </style>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   </head>
   <body>
     <section class="header_section">
@@ -96,10 +89,10 @@
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" id="air_pollution" href="{{ url_for('data_analysis', type = 'air') }}">Air</a>
-                    <a class="dropdown-item" id="water_pollution" href="{{ url_for('data_analysis', type = 'water') }}"
+                    <a class="dropdown-item" id="water_pollution" href="{{ url_for('data_analysis' ,type = 'water') }}"
                       >Water</a
                     >
-                    <a class="dropdown-item" id="noise_pollution" href="{{ url_for('data_analysis', type = 'noise') }}"
+                    <a class="dropdown-item" id="noise_pollution" href="{{ url_for('data_analysis' , type = 'noise') }}"
                       >Noise</a
                     >
                   </div>
@@ -113,21 +106,15 @@
         </nav>
       </header>
     </section>
-
-    <div class="container">
-      <div class="dropdown dropend" id="bt">
-        <a class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" aria-expanded="false" href="{{ url_for('insightsOfWater') }}">
-          Insights
-        </a>
-      </div>
-      
-      <div class="dropdown dropend" id="bt">
-        <a class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" aria-expanded="false" href="{{ url_for('PredictionofWaterQualityIndex') }}">
-          Prediction of Water Quality Index
-        </a>
-      </div>
+    <h1 style="margin-left: 10px;">{{heading}}</h1>
+    <div id="so2_plot" style="margin-left: 10px;">
+        {{ data|safe }}
     </div>
-      
+        <ul class="list-group">
+            {% for sentence in sentences %}
+                <li class="list-group-item">{{ loop.index }}. {{sentence}}</li>
+            {% endfor %}
+        </ul>
     </div>
   </body>
 </html>

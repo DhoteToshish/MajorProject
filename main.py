@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from data_processing import comparisonAcrossLocations,load_data
+from data_processing import comparisonAcrossLocations,distributionsOfPollutionLevels,OutLierDetectionOfAir,InterActiveDashBoard,ComplianceAssessmentOfWaterQuality,StateWiseDisolvedOxygenRange,StateWiseWaterPh,StateWiseWaterTemperature,getPredictivemodel,ComparativeAnalysisOfWaterModel,load_data
 import pandas as pd
 app = Flask(__name__, static_folder='static')
 
@@ -69,6 +69,59 @@ def comparisonsAcrossLocations(pollutant):
     data = comparisonAcrossLocations(pollutant=pollutant)
     return render_template("CAL_Pollutant.html", data = data[0], pollutant = data[1], sentences = data[2] )
 
+@app.route("/distributionOfPollutionLevels")
+def distributionOfPollutionLevels():
+    data = distributionsOfPollutionLevels()
+    return render_template("distributionOfPollutionLevel.html",data = data)
 
+@app.route("/outLierDetectionOfAir")
+def outLierDetectionOfAir():
+    data = OutLierDetectionOfAir()
+    return render_template("outLierDetectionOfAir.html",data=data)
+
+@app.route("/interActiveDashBoard")
+def interActiveDashBoard():
+    data = InterActiveDashBoard()
+    return render_template("InterActiveDashBoard.html", data=data)
+
+
+@app.route("/insightsOfWater")
+def insightsOfWater():
+    return render_template("InsightsOfWater.html")
+
+@app.route("/ComplianceAssessmentofwaterquality")
+def ComplianceAssessmentofwaterquality():
+    data = ComplianceAssessmentOfWaterQuality()
+    return render_template("ComplianceAssessmentOfWaterQuality.html", data = data[0], heading = data[1], sentences = data[2])
+
+@app.route("/StateWiseDORange")
+def StateWiseDORange():
+    data = StateWiseDisolvedOxygenRange()
+    return render_template("ComplianceAssessmentOfWaterQuality.html", data = data[0], heading = data[1], sentences = data[2])
+
+@app.route("/StateWisewaterPh")
+def StateWisewaterPh():
+    data = StateWiseWaterPh()
+    return render_template("ComplianceAssessmentOfWaterQuality.html", data = data[0], heading = data[1], sentences = data[2])
+
+@app.route("/StateWisewatertemp")
+def StateWisewatertemp():
+    data = StateWiseWaterTemperature()
+    return render_template("ComplianceAssessmentOfWaterQuality.html", data = data[0], heading = data[1], sentences = data[2])
+
+@app.route("/PredictionofWaterQualityIndex")
+def PredictionofWaterQualityIndex():
+    return render_template("PredictionofWaterQualityIndex.html")
+
+@app.route("/getPredictiveModel/<model>")
+def getPredictiveModel(model):
+    data = getPredictivemodel(model)
+    return render_template("displayPredictiveModel.html",data = data[0],heading = data[1], sentences = data[2], df = data[3],modelTorender = data[4], metric_df = None)
+
+
+@app.route("/ComparativeAnalysisOfWater")
+def ComparativeAnalysisOfWater():
+    data = ComparativeAnalysisOfWaterModel()
+    return render_template("displayPredictiveModel.html",data = data[0],heading = data[1], sentences = data[2], df = None,modelTorender = None, metric_df = data[5])
 if __name__ == "__main__":
     app.run(debug=True)

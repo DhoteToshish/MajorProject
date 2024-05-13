@@ -127,29 +127,19 @@
         </div>
 
         <div class="dropdown dropend" id="bt">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-               Distribution of Pollution levels
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">SO2</a></li>
-              <li><a class="dropdown-item" href="#">NO2</a></li>
-              <li><a class="dropdown-item" href="#">PM10</a></li>
-            </ul>
+            <a  class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" aria-expanded="false" href="{{url_for('distributionOfPollutionLevels')}}">
+                Distribution of Pollution levels
+            </a>
         </div>
 
         <div class="dropdown dropend" id="bt">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          <a  class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" aria-expanded="false" href="{{url_for('outLierDetectionOfAir')}}">
                Outlier Detection
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">SO2</a></li>
-              <li><a class="dropdown-item" href="#">NO2</a></li>
-              <li><a class="dropdown-item" href="#">PM10</a></li>
-            </ul>
+          </a>
         </div>
 
         <div class="dropdown dropend" id="bt">
-            <a class="btn btn-secondary"  >
+            <a class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" aria-expanded="false" href="{{url_for('interActiveDashBoard')}}">
                Interactive DasBoard
             </a>
         </div>
