@@ -316,7 +316,14 @@ def ComplianceAssessmentOfWaterQuality():
     # Customize layout for better visualization
     #fig.update_xaxes(,tickfont=dict(size=10), title=None)  # Rotate x-axis labels for readability
     fig.update_yaxes(title='Compliance Status')
-    sentences = []
+    sentences = [
+        "Models: The x-axis represents different station names where water quality is assessed.",
+        "The y-axis ranges from 0 to 1000.",
+        "Each station is represented by a bar.",
+        "Red bars indicate non-compliance (False) with water quality standards.",
+	    "Green bars indicate compliance (True) with water quality standards.",
+        "In summary, most stations are not in compliance with water quality standards, as indicated by the predominance of red bars"
+    ]
     return [fig.to_html(full_html=False, include_plotlyjs='cdn', default_height=500),'Compliance Assessment of Water Quality at Various Stations', sentences]
 
 def StateWiseDisolvedOxygenRange():
@@ -380,7 +387,14 @@ def StateWiseDisolvedOxygenRange():
         text=f"Highest Max Dissolved O2 ({avg_do_by_state['Dissolved O2 max'].max():.2f} mg/l)",
         showarrow=True, arrowhead=1, ax=0, ay=-40
     )
-    sentences = []
+    sentences = [
+        "The x-axis is labeled with the names of various states.",
+	"The y-axis represents Dissolved Oxygen (D.O.) levels measured in mg/l (milligrams per liter), ranging from 0 to 9 mg/l.",
+	"Each state has two bars side by side: one indicates the average minimum dissolved oxygen level (dark green), and the other indicates the average maximum dissolved oxygen level (light green).",
+	"Annotations are present indicating the “Highest Max Dissolved O2” at approximately 7.90 mg/l and the “Lowest Min Dissolved O2” close to 0.20 mg/l.",
+    "The graph helps us understand the variation of dissolved oxygen levels across different states in India.",
+	"Some states have higher dissolved oxygen levels (closer to 7.90 mg/l), while others have lower levels (near 0.20 mg/l)"
+    ]
     return [fig.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), 'State-wise Average Minimum and Maximum Dissolved Oxygen (D.O.)', sentences]
 
 def StateWiseWaterPh():
@@ -438,7 +452,12 @@ def StateWiseWaterPh():
         showarrow=True, arrowhead=1, ax=0, ay=-40
     )
 
-    sentences = []
+    sentences = [
+        "It’s a bar graph with two sets of bars for each state, one indicating minimum (light purple) and another indicating maximum (dark purple) water pH levels.",
+        "There are annotations for the highest max pH (13.64) and lowest min pH (5.91).",
+        "The y-axis is labeled “pH” with a scale from 0 to 15.",
+        "The x-axis is labeled “State” with names of various states listed."
+    ]
     return [fig.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), 'State-wise Average Minimum and Maximum Water pH', sentences]
 
 def StateWiseWaterTemperature():
@@ -492,7 +511,10 @@ def StateWiseWaterTemperature():
         text=f"Highest Max Temp ({avg_temp_by_state['Temperature (Celsius) max'].max():.2f}°C)",
         showarrow=True, arrowhead=1, ax=0, ay=-40
     )
-    sentences = []
+    sentences = ["The x-axis labels indicate different states, while the y-axis represents temperature in Celsius, ranging from 0 to 35°C.",
+                 "Each state has two bars: blue for minimum temperature and orange for maximum temperature.",
+                "The highest maximum temperature recorded is 32.42°C in West Bengal, while the lowest minimum is 0°C in Himachal Pradesh"
+    ]
     return [fig.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), 'State-wise Average Minimum and Maximum Water Temperature', sentences]
 
 
@@ -563,18 +585,61 @@ def getPredictivemodel(modelTorender):
 
     HeadTitle = ''
     yTitle = ''
+    sentences = []
     if modelTorender == "MAE":
         HeadTitle = 'Mean Absolute Error (MAE) of Prediction Models'
         yTitle = 'MAE Value'
+        sentences = [
+            "The x-axis represents different prediction “Model” types: Random Forest, Support Vector Machine, K-Nearest Neighbours, Decision Tree, and Multi-Linear Regression.",
+            "The y-axis represents the “MAE Value” ranging from 0 to 120.",
+            "Each bar corresponds to a model and has a distinct colour",
+            "Blue for Random Forest (MAE slightly above 0)",
+            "Orange for Support Vector Machine (MAE just above 100)",
+            "Green for K-Nearest Neighbours (MAE around 70)"
+            "Light blue for Decision Tree (almost zero MAE)",
+            "Purple for Multi-Linear Regression (also almost zero MAE)",
+            "Annotations indicate the highest max MAE (Support Vector Machine) and lowest min MAE (Decision Tree)",
+            "The graph helps us compare the accuracy of different prediction models.",
+	        "Models with lower MAE values are more accurate in their predictions."
+            ]
     elif modelTorender == 'RMSE':
         HeadTitle = 'Root Mean Squared Error (RMSE) of Prediction Models'
         yTitle = 'RMSE Value'
+        sentences = [
+            "The x-axis represents five different machine learning models: Random Forest, Support Vector Machine, K-Nearest Neighbors, Decision Tree, and Multi-Linear Regression.",
+            "The y-axis shows the Root Mean Squared Error (RMSE) values. RMSE measures how well a model’s predictions match the actual data. Lower RMSE values indicate better performance.",
+            "Support Vector Machine (SVM) has the highest error, as indicated by the tallest bar.",
+            "K-Nearest Neighbors (KNN) follows with a slightly lower error.",
+            "Multi-Linear Regression has a moderate error.",
+            "Decision Tree performs better than the previous models.",
+            "Random Forest has the lowest error, represented by the shortest bar",
+            "In summary, Random Forest is the best-performing model in terms of RMSE, while Support Vector Machine performs the worst. Lower RMSE values are desirable for accurate predictions."
+        ]
     elif modelTorender == "MSE":
         HeadTitle = 'Mean Squared Error (MSE) of Prediction Models'
         yTitle = 'MSE Value'
+        sentences = [
+            "The x-axis represents five different machine learning models: Random Forest, Support Vector Machine, K-Nearest Neighbors, Decision Tree, and Multi-Linear Regression.",
+            "The y-axis shows the Mean Squared Error (MSE) values. MSE measures how well a model’s predictions match the actual data. Lower MSE values indicate better performance.",
+            "Support Vector Machine (SVM) has the highest error, as indicated by the tallest bar.",
+            "K-Nearest Neighbors (KNN) follows with a slightly lower error.",
+            "Multi-Linear Regression has a moderate error.",
+            "Decision Tree performs better than the previous models.",
+            "Random Forest has the lowest error, represented by the shortest bar"
+            "In summary, Random Forest is the best-performing model in terms of MSE, while Support Vector Machine performs the worst.  lower MSE values are desirable for accurate predictions."
+        ]
     else:
         HeadTitle = 'R-squared (R2) of Prediction Models'
         yTitle = 'R-squared Value'
+        sentences = [
+            "The x-axis represents five different machine learning models: Random Forest, Support Vector Machine, K-Nearest Neighbours, Decision Tree, and Multi-Linear Regression.",
+            "The y-axis shows the R-squared (R2) values. R2 measures how well a model’s predictions fit the actual data. It ranges from 0 to 1, where 1 indicates a perfect fit.",
+            "Random Forest has the highest R-squared value, almost 1. This suggests that Random Forest is an effective model according to this metric.",
+            "Decision Tree also shows a high R-squared value, slightly less than Random Forest.",
+            "Multi-Linear Regression and K-Nearest Neighbours have significantly lower R-squared values compared to Random Forest and Decision Tree.",
+            "Support Vector Machine has an extremely low R-squared value close to zero, indicating it is not effective according to this metric.",
+            "In summary, Random Forest performs best in terms of R-squared, while Support Vector Machine performs poorly. Higher R-squared values indicate better model fit."
+        ]
 
     mae_fig = go.Figure(go.Bar(x=mae_summary_df['Model'], y=mae_summary_df[modelTorender], name=modelTorender, marker_color=colors))
     mae_fig.update_layout(title=HeadTitle,
@@ -582,7 +647,6 @@ def getPredictivemodel(modelTorender):
                         yaxis_title=yTitle)
     
     print("mae_summary_df",mae_summary_df)
-    sentences = []
     return [mae_fig.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), HeadTitle, sentences,mae_summary_df, modelTorender]
 
 
@@ -664,7 +728,19 @@ def ComparativeAnalysisOfWaterModel():
                                 arrowhead=1, ax=0, ay=-40, row=(i // 2) + 1, col=(i % 2) + 1)
 
     fig.update_layout(height=800, width=1440, title_text="Comparative Performance of Prediction Models", showlegend=False)
-    sentences = []
+    sentences = [
+        "The x-axis represents five different machine learning models: Random Forest, Support Vector Machine, K-Nearest Neighbors, Decision Tree, and Multi-Linear Regression.",
+        "MAE (Mean Absolute Error): Measures the average absolute difference between predicted and actual values. Lower MAE values indicate better performance.",
+        "RMSE (Root Mean Square Error): Similar to MAE but emphasizes larger errors. RMSE is the square root of the average squared differences.",
+        "MSE (Mean Squared Error): Measures the average squared difference between predicted and actual values. Lower MSE values are desirable.",
+        "R-squared (R2): Indicates how well the model fits the data. R2 ranges from 0 to 1, with higher values indicating better fit.",
+        "Random Forest performs best in terms of MAE, RMSE, and MSE. It has the lowest error across these metrics.",
+        "Support Vector Machine excels in RMSE, showing the lowest error for this metric.",
+        "Decision Tree also performs well in RMSE and MSE.",
+        "Multi-Linear Regression and K-Nearest Neighbors have higher errors across all metrics",
+        "Random Forest leads in R-squared, indicating better fit to the data",
+        "In summary, Random Forest is the most effective model overall, while Support Vector Machine performs well in RMSE."
+    ]
 
     metric_df = pd.DataFrame(columns=['Model'] + metric_names)
 
@@ -950,3 +1026,230 @@ def getWaterDataSet():
     df[numerical_columns] = df[numerical_columns].apply(lambda x: round(x, 1))
 
     return df
+
+def ComparativeAnalysisOfAirModel():
+    data = pd.read_excel("xlsxFiles/AIR/2013.xlsx")
+    # Basic data cleaning (handle missing values, etc.)
+    # Separate numeric columns from non-numeric columns
+    numeric_columns = data.select_dtypes(include=['number']).columns
+    non_numeric_columns = data.select_dtypes(exclude=['number']).columns
+
+    # Fill missing values in numeric columns with the mean of each column
+    data[numeric_columns] = data[numeric_columns].apply(lambda x: x.fillna(x.mean()))
+
+    # Optionally, handle missing values in non-numeric columns (e.g., fill with mode, forward fill, etc.)
+    # For demonstration, let's fill with the mode (most frequent value)
+    data[non_numeric_columns] = data[non_numeric_columns].apply(lambda x: x.fillna(x.mode()[0] if not x.mode().empty else 'Unknown'))
+
+
+    pd.set_option('display.max_rows', None)
+    print(data)
+    # Define features and target variables
+    features = data.drop(['Annual Average SO2', 'Annual Average NO2', 'Annual Average PM10'], axis=1)  # Input features
+    target_SO2 = data['Annual Average SO2']  # Target variable for SO2
+    target_NO2 = data['Annual Average NO2']  # Target variable for NO2
+    target_PM10 = data['Annual Average PM10']  # Target variable for PM10
+
+    # Handling categorical columns with one-hot encoding
+    features_encoded = pd.get_dummies(features)
+
+    # Split data into training and testing sets using the encoded features
+    X_train_encoded, X_test_encoded, y_train, y_test = train_test_split(features_encoded, target_SO2, test_size=0.2, random_state=42)
+
+    # Initialize models
+    rf_model = RandomForestRegressor()
+    svm_model = SVR()
+    knn_model = KNeighborsRegressor()
+    dt_model = DecisionTreeRegressor()
+    lr_model = LinearRegression()
+
+    # Train the models with encoded features
+    rf_model.fit(X_train_encoded, y_train)
+    svm_model.fit(X_train_encoded, y_train)
+    knn_model.fit(X_train_encoded, y_train)
+    dt_model.fit(X_train_encoded, y_train)
+    lr_model.fit(X_train_encoded, y_train)
+
+    # Predictions
+    rf_pred = rf_model.predict(X_test_encoded)
+    svm_pred = svm_model.predict(X_test_encoded)
+    knn_pred = knn_model.predict(X_test_encoded)
+    dt_pred = dt_model.predict(X_test_encoded)
+    lr_pred = lr_model.predict(X_test_encoded)
+
+    # Calculate evaluation metrics for each model
+    mse_scores = [mean_squared_error(y_test, pred) for pred in [rf_pred, svm_pred, knn_pred, dt_pred, lr_pred]]
+    rmse_scores = [np.sqrt(mse) for mse in mse_scores]
+    mae_scores = [mean_absolute_error(y_test, pred) for pred in [rf_pred, svm_pred, knn_pred, dt_pred, lr_pred]]
+    r2_scores = [r2_score(y_test, pred) for pred in [rf_pred, svm_pred, knn_pred, dt_pred, lr_pred]]
+
+    models = ['Random Forest', 'Support Vector Machine', 'K-Nearest Neighbors', 'Decision Tree', 'Linear Regression']
+    # Data preparation
+    metrics = ['MSE', 'RMSE', 'MAE', 'R-squared']
+    scores = [mse_scores, rmse_scores, mae_scores, r2_scores]
+
+    # Define a color scale
+    colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']
+
+    # Create subplots with optimized layout
+    fig = make_subplots(rows=2, cols=2, subplot_titles=metrics, vertical_spacing=0.2)  # Adjust the vertical spacing here
+
+    # Determine the length of the models array
+    num_models = len(models)
+
+    # Add traces for each metric
+    for i, metric in enumerate(metrics):
+        color_indices = np.arange(num_models) % len(colors)  # Ensure color indices are within the bounds of the colors array
+        row = i // 2 + 1  # Calculate row index
+        col = i % 2 + 1   # Calculate column index
+        trace = go.Bar(
+            x=models,
+            y=scores[i],
+            name=metric,
+            marker=dict(color=[colors[j] for j in color_indices])  # Use a different color for each bar
+        )
+        fig.add_trace(trace, row=row, col=col)
+
+        # Highlight the best model for each metric
+        best_model_index = np.argmin(scores[i]) if metric != 'R-squared' else np.argmax(scores[i])
+        fig.add_annotation(
+            x=models[best_model_index],
+            y=scores[i][best_model_index],
+            xref='x',
+            yref='y',
+            text=f'Best: {models[best_model_index]}',
+            showarrow=True,
+            arrowhead=7,
+            ax=0,
+            ay=-40,
+            row=row,
+            col=col
+        )
+
+    # Update layout
+    fig.update_layout(
+        title='Metrics for Different Models',
+        width=1400,
+        height=800,
+    )
+
+    # Make ticks horizontal and wrap them
+    ticktexts = [label.replace(' ', '<br>') for label in models]  # Insert <br> to represent space
+    fig.update_xaxes(tickvals=np.arange(len(models)), ticktext=ticktexts)
+    fig.update_yaxes(tickangle=0, title='Score')
+    sentences = []
+    return [fig.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), "Comparative Performance of Prediction Models", sentences,'', '',None]
+
+def GetPredictiveModelOfAir(model):
+    data = pd.read_excel("xlsxFiles/AIR/2013.xlsx")
+    # Basic data cleaning (handle missing values, etc.)
+    # Separate numeric columns from non-numeric columns
+    numeric_columns = data.select_dtypes(include=['number']).columns
+    non_numeric_columns = data.select_dtypes(exclude=['number']).columns
+
+    # Fill missing values in numeric columns with the mean of each column
+    data[numeric_columns] = data[numeric_columns].apply(lambda x: x.fillna(x.mean()))
+
+    # Optionally, handle missing values in non-numeric columns (e.g., fill with mode, forward fill, etc.)
+    # For demonstration, let's fill with the mode (most frequent value)
+    data[non_numeric_columns] = data[non_numeric_columns].apply(lambda x: x.fillna(x.mode()[0] if not x.mode().empty else 'Unknown'))
+
+
+    pd.set_option('display.max_rows', None)
+    features = data.drop(['Annual Average SO2', 'Annual Average NO2', 'Annual Average PM10'], axis=1)  # Input features
+    target_SO2 = data['Annual Average SO2']  # Target variable for SO2
+    target_NO2 = data['Annual Average NO2']  # Target variable for NO2
+    target_PM10 = data['Annual Average PM10']  # Target variable for PM10
+
+    # Handling categorical columns with one-hot encoding
+    features_encoded = pd.get_dummies(features)
+
+    # Split data into training and testing sets using the encoded features
+    X_train_encoded, X_test_encoded, y_train, y_test = train_test_split(features_encoded, target_SO2, test_size=0.2, random_state=42)
+
+    # Initialize models
+    rf_model = RandomForestRegressor()
+    svm_model = SVR()
+    knn_model = KNeighborsRegressor()
+    dt_model = DecisionTreeRegressor()
+    lr_model = LinearRegression()
+
+    # Train the models with encoded features
+    rf_model.fit(X_train_encoded, y_train)
+    svm_model.fit(X_train_encoded, y_train)
+    knn_model.fit(X_train_encoded, y_train)
+    dt_model.fit(X_train_encoded, y_train)
+    lr_model.fit(X_train_encoded, y_train)
+
+    # Predictions
+    rf_pred = rf_model.predict(X_test_encoded)
+    svm_pred = svm_model.predict(X_test_encoded)
+    knn_pred = knn_model.predict(X_test_encoded)
+    dt_pred = dt_model.predict(X_test_encoded)
+    lr_pred = lr_model.predict(X_test_encoded)
+
+    # Calculate evaluation metrics for each model
+    mse_scores = [mean_squared_error(y_test, pred) for pred in [rf_pred, svm_pred, knn_pred, dt_pred, lr_pred]]
+    rmse_scores = [np.sqrt(mse) for mse in mse_scores]
+    mae_scores = [mean_absolute_error(y_test, pred) for pred in [rf_pred, svm_pred, knn_pred, dt_pred, lr_pred]]
+    r2_scores = [r2_score(y_test, pred) for pred in [rf_pred, svm_pred, knn_pred, dt_pred, lr_pred]]
+
+    models = ['Random Forest', 'Support Vector Machine', 'K-Nearest Neighbors', 'Decision Tree', 'Linear Regression']
+    # Data preparation
+    metrics = ['MSE', 'RMSE', 'MAE', 'R-squared']
+    # scores = [mse_scores, rmse_scores, mae_scores, r2_scores]
+
+    # metric = ''
+    # I = 0
+    # if model == "MSE":
+    #     metric = "MSE"
+    #     I=0
+    # elif model == "RMSE": 
+    #     metric = "RMSE" 
+    #     I=1
+    # elif model == "MAE":
+    #     metric = "MAE"
+    #     I=2
+    # else:
+    #     metric = "R-squared"
+    #     I=3
+
+    fig = {}
+
+    evaluation_df = pd.DataFrame({'Model': models,
+                              'Mean Squared Error': mse_scores,
+                              'Root Mean Squared Error': rmse_scores,
+                              'Mean Absolute Error': mae_scores,
+                              'R-squared': r2_scores})
+
+    # Define a color sequence for bars
+    colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
+
+    HeadTitle = ''
+    if model == "MSE":
+        mse_plot = go.Bar(x=evaluation_df['Model'], y=evaluation_df['Mean Squared Error'], name='Mean Squared Error', marker=dict(color=colors))
+        mse_layout = go.Layout(title='Mean Squared Error for Different Models', xaxis=dict(tickangle=-45, showgrid=False), yaxis=dict(showgrid=False), width=800, height=500)
+        mse_fig = go.Figure(data=[mse_plot], layout=mse_layout)
+        fig = mse_fig
+        HeadTitle = 'Mean Squared Error for Different Models'
+    elif model == "RMSE": 
+        rmse_plot = go.Bar(x=evaluation_df['Model'], y=evaluation_df['Root Mean Squared Error'], name='Root Mean Squared Error', marker=dict(color=colors))
+        rmse_layout = go.Layout(title='Root Mean Squared Error for Different Models', xaxis=dict(tickangle=-45, showgrid=False), yaxis=dict(showgrid=False), width=800, height=500)
+        rmse_fig = go.Figure(data=[rmse_plot], layout=rmse_layout)
+        fig = rmse_fig
+        HeadTitle = 'Root Mean Squared Error for Different Models'
+    elif model == "MAE":
+        mae_plot = go.Bar(x=evaluation_df['Model'], y=evaluation_df['Mean Absolute Error'], name='Mean Absolute Error', marker=dict(color=colors))
+        mae_layout = go.Layout(title='Mean Absolute Error for Different Models', xaxis=dict(tickangle=-45, showgrid=False), yaxis=dict(showgrid=False), width=800, height=500)
+        mae_fig = go.Figure(data=[mae_plot], layout=mae_layout)
+        fig = mae_fig
+        HeadTitle = 'Mean Absolute Error for Different Models'
+    else:
+        r2_plot = go.Bar(x=evaluation_df['Model'], y=evaluation_df['R-squared'], name='R-squared', marker=dict(color=colors))
+        r2_layout = go.Layout(title='R-squared for Different Models', xaxis=dict(tickangle=-45, showgrid=False), yaxis=dict(showgrid=False), width=800, height=500)
+        r2_fig = go.Figure(data=[r2_plot], layout=r2_layout)
+        fig = r2_fig
+        HeadTitle = 'R-squared for Different Models'
+    sentences = []
+    df = None
+    return [fig.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), HeadTitle, sentences,df, model, None, df]

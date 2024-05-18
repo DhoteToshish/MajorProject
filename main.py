@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from data_processing import comparisonAcrossLocations,distributionsOfPollutionLevels,OutLierDetectionOfAir,InterActiveDashBoard,ComplianceAssessmentOfWaterQuality,StateWiseDisolvedOxygenRange,StateWiseWaterPh,StateWiseWaterTemperature,getPredictivemodel,ComparativeAnalysisOfWaterModel,DiurnalLimitsTrendOfNoise,disparityAcrossAreaForNoise,GetPredictiveModelOfNoise,ComparativeAnalysisOfNoiseModel,getWaterDataSet,load_data
+from data_processing import comparisonAcrossLocations,distributionsOfPollutionLevels,OutLierDetectionOfAir,InterActiveDashBoard,ComplianceAssessmentOfWaterQuality,StateWiseDisolvedOxygenRange,StateWiseWaterPh,StateWiseWaterTemperature,getPredictivemodel,ComparativeAnalysisOfWaterModel,DiurnalLimitsTrendOfNoise,disparityAcrossAreaForNoise,GetPredictiveModelOfNoise,ComparativeAnalysisOfNoiseModel,getWaterDataSet,ComparativeAnalysisOfAirModel,GetPredictiveModelOfAir,load_data
 import pandas as pd
 app = Flask(__name__, static_folder='static')
 
@@ -158,6 +158,20 @@ def ComparativeAnalysisOfNoise():
 def  waterDataSet():
     data = getWaterDataSet()
     return render_template("waterDataSet.html",data=data)
+
+@app.route("/predictionOfAirQuality")
+def predictionOfAirQuality():
+    return render_template("PredictionofAirQuality.html")
+
+@app.route("/getPredictiveModelOfAir/<model>")
+def getPredictiveModelOfAir(model):
+    data = GetPredictiveModelOfAir(model)
+    return render_template("displayPredictiveModel.html",data = data[0],heading = data[1], sentences = data[2], df = None,modelTorender = data[4], metric_df = None, preDictiveDf = data[6])
+
+@app.route("/ComparativeAnalysisOfAir")
+def ComparativeAnalysisOfAir():
+    data = ComparativeAnalysisOfAirModel()
+    return render_template("displayPredictiveModel.html",data = data[0],heading = data[1], sentences = data[2], df = None,modelTorender = None, metric_df = data[5], preDictiveDf = None)
 
 if __name__ == "__main__":
     app.run(debug=True)
