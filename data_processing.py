@@ -1253,3 +1253,181 @@ def GetPredictiveModelOfAir(model):
     sentences = []
     df = None
     return [fig.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), HeadTitle, sentences,df, model, None, df]
+
+def getStateWiseAvgWQI():
+    # Load your dataset from Excel
+    file_path = "xlsxFiles/WATER/water_quality_of_ground_water_state_wise_2019.xlsx"  # Specify the path to your dataset
+    df = pd.read_excel(file_path)
+
+    numerical_columns = df.select_dtypes(include=['float64', 'int64']).columns.tolist()
+    numerical_columns = [col for col in numerical_columns if col != 'Station Code' and col!= 'Year']
+    #print("\n Numerical columns present in datasets (excluding the station code column) are as follows : \n ", numerical_columns)
+
+    df[numerical_columns] = df[numerical_columns].fillna(df[numerical_columns].mean())
+
+    df[numerical_columns] = df[numerical_columns].apply(lambda x: round(x, 1))
+
+     # Calculate Water Quality Index (WQI) for each row
+    df['WQI'] = df.apply(calculate_wqi, axis=1)
+
+    # Define the desired range for scaled WQI (0 to 400)
+    min_range = 0
+    max_range = 400
+
+    # Scale the WQI values to the specified range
+    min_wqi = df['WQI'].min()
+    max_wqi = df['WQI'].max()
+
+    df['Scaled WQI'] = ((df['WQI'] - min_wqi) / (max_wqi - min_wqi)) * (max_range - min_range) + min_range
+
+    # Display the scaled WQI values
+    print("Scaled WQI:")
+    print(df['Scaled WQI'])
+
+    # Feature Selection and Data Splitting
+    X = df[numerical_columns]  # Use numerical columns for model training
+    y = df['Scaled WQI']               # WQI is the target variable
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    # Train the Random Forest Regression
+    rf_model = RandomForestRegressor(random_state=42)
+    rf_model.fit(X_train, y_train)
+
+    # Predict WQI for test data using the trained model
+    y_pred_rf = rf_model.predict(X_test)
+
+    # Add predicted WQI values to the test dataset
+    test_data_with_predictions = X_test.copy()
+    test_data_with_predictions['Predicted WQI'] = y_pred_rf
+
+    #print(df['State Name'].unique())
+
+    # Merge with the original dataframe to get state names for each sample
+    test_data_with_predictions['State Name'] = df.loc[test_data_with_predictions.index, 'State Name']
+
+    # Calculate average predicted WQI for each state
+    state_wise_wqi = test_data_with_predictions.groupby('State Name')['Predicted WQI'].mean().reset_index()
+
+    #print(state_wise_wqi)
+    state_wise_wqi = state_wise_wqi.sort_values(by ="Predicted WQI", ascending=False)
+
+    # Define color scale for the bar chart
+    color_scale = px.colors.sequential.Viridis  # Choose a color scale (e.g., Viridis)
+
+    # Apply water quality descriptions to the State-wise Average Predicted WQI data
+    state_wise_wqi['Quality Description'] = state_wise_wqi['Predicted WQI'].apply(get_water_quality_description)
+
+    state_wqi_df = pd.DataFrame({
+        'State' : state_wise_wqi['State Name'],
+        'Predicted Average WQI' : state_wise_wqi['Predicted WQI'],
+        'Water Quality' : state_wise_wqi['Quality Description']
+    })
+    # Plot State-wise Average Predicted WQI using Plotly bar plot with color bar and hover text
+    fig_state_wqi = px.bar(state_wise_wqi, x='State Name', y='Predicted WQI',
+                            labels={'Predicted WQI': 'State-wise Predicted WQI'},
+                            title='State-wise Average Predicted Water Quality Index (WQI)',
+                            color='Predicted WQI',  # Color bars based on Predicted WQI values
+                            color_continuous_scale=color_scale,  # Specify the color scale
+                            hover_data={'State Name': True, 'Predicted WQI': True, 'Quality Description': True})  # Include hover data
+
+    # Customize hover text to display quality descriptions
+    fig_state_wqi.update_traces(hovertemplate='<br>'.join([
+        'State: %{x}',
+        'Predicted WQI: %{y}',
+        'Quality Description: %{customdata[0]}'
+    ]))
+    # xaxis_tickangle=-90
+    fig_state_wqi.update_layout(xaxis_title='State', yaxis_title='Predicted WQI', width= 1400, height =800,
+                                coloraxis_colorbar=dict(title='Predicted WQI'))
+    HeadTitle = 'State-wise Average Predicted Water Quality Index (WQI)'
+    sentences = []
+    
+    return [fig_state_wqi.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), HeadTitle, sentences,state_wqi_df, None, None, None]
+
+def getStationWiseAvgWQI():
+    # Load your dataset from Excel
+    file_path = "xlsxFiles/WATER/water_quality_of_ground_water_state_wise_2019.xlsx"  # Specify the path to your dataset
+    df = pd.read_excel(file_path)
+
+    numerical_columns = df.select_dtypes(include=['float64', 'int64']).columns.tolist()
+    numerical_columns = [col for col in numerical_columns if col != 'Station Code' and col!= 'Year']
+    #print("\n Numerical columns present in datasets (excluding the station code column) are as follows : \n ", numerical_columns)
+
+    df[numerical_columns] = df[numerical_columns].fillna(df[numerical_columns].mean())
+
+    df[numerical_columns] = df[numerical_columns].apply(lambda x: round(x, 1))
+
+     # Calculate Water Quality Index (WQI) for each row
+    df['WQI'] = df.apply(calculate_wqi, axis=1)
+
+    # Define the desired range for scaled WQI (0 to 400)
+    min_range = 0
+    max_range = 400
+
+    # Scale the WQI values to the specified range
+    min_wqi = df['WQI'].min()
+    max_wqi = df['WQI'].max()
+
+    df['Scaled WQI'] = ((df['WQI'] - min_wqi) / (max_wqi - min_wqi)) * (max_range - min_range) + min_range
+
+    # Display the scaled WQI values
+    print("Scaled WQI:")
+    print(df['Scaled WQI'])
+
+    # Feature Selection and Data Splitting
+    X = df[numerical_columns]  # Use numerical columns for model training
+    y = df['Scaled WQI']               # WQI is the target variable
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    # Train the Random Forest Regression
+    rf_model = RandomForestRegressor(random_state=42)
+    rf_model.fit(X_train, y_train)
+
+    # Predict WQI for test data using the trained model
+    y_pred_rf = rf_model.predict(X_test)
+
+    # Create a DataFrame with predicted WQI values and corresponding station names
+    predicted_wqi_df = pd.DataFrame({
+        'Station Name': df.loc[X_test.index, 'Station Name'],  # Get station names from the original dataset
+        'Predicted WQI': y_pred_rf
+    })
+
+    #print(df['Station Name'])
+    # Calculate average predicted WQI for each station (using mean aggregation)
+    station_wise_wqi = predicted_wqi_df.groupby('Station Name')['Predicted WQI'].mean().reset_index()
+
+    # Apply water quality descriptions to the Station-wise Average Predicted WQI data
+    station_wise_wqi['Quality Description'] = station_wise_wqi['Predicted WQI'].apply(get_water_quality_description)
+
+    # Create a new DataFrame for visualization with row numbers, state names, predicted WQI, and water quality descriptions
+    station_wise_df = pd.DataFrame({
+        'Station Name': station_wise_wqi['Station Name'],
+        'Predicted WQI': station_wise_wqi['Predicted WQI'],
+        'Water Quality': station_wise_wqi['Quality Description']
+    })
+
+    # Plot Station-wise Average Predicted WQI using Plotly bar plot with color bar and hover text
+    fig_station_wqi = px.bar(station_wise_wqi, x='Station Name', y='Predicted WQI',
+                            labels={'Predicted WQI': 'Station-wise Predicted WQI'},
+                            title='Station-wise Average Predicted Water Quality Index (WQI)',
+                            color='Predicted WQI',  # Color bars based on Predicted WQI values
+                            color_continuous_scale='Viridis',  # Specify the color scale
+                            hover_data={'Station Name': True, 'Predicted WQI': True, 'Quality Description': True})  # Include hover data
+
+    # Customize hover text to display quality descriptions
+    fig_station_wqi.update_traces(hovertemplate='<br>'.join([
+        'Station: %{x}',
+        'Predicted WQI: %{y}',
+        'Quality Description: %{customdata[0]}'
+    ]))
+
+    # Update layout for better presentation
+    fig_station_wqi.update_layout(xaxis_title='Station Name', yaxis_title='Predicted WQI', 
+                                width=1400, height=1200,
+                                coloraxis_colorbar=dict(title='Predicted WQI'))
+    HeadTitle = 'Station-wise Average Predicted Water Quality Index (WQI)'
+    sentences = []
+    return [fig_station_wqi.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), HeadTitle, sentences,None, None, None, None]
+    
+    

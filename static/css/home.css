@@ -74,6 +74,7 @@ body {
 /* Project Title Section */
 .project_title_section {
     display: flex;
+    padding: 20px;
 }
 
 .project_title_section img {
@@ -85,12 +86,15 @@ body {
     position: relative;
     margin-left: -1341px;
     margin-right: 135px;
-    color: white;
+    color: #e0f75f;
     font-weight: 1000;
     font-size: 45px;
     text-align: center;
     margin-top: 200px;
+    text-shadow: 2px 2px 4px rgb(0, 0, 0)
 }
+
+
 
 /* Project Details Section */
 .project_details_section {
