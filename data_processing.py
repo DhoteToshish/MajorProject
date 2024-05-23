@@ -16,6 +16,8 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from math import sqrt
+from sentence_loader import require_json
+sentences_data = require_json('sentences\\sentences.json')
 app = dash.Dash(__name__)
 
 
@@ -164,42 +166,16 @@ def comparisonAcrossLocations(pollutant):
                 title=f'Mean {pollutant} Levels Across Different States/UT',
                 labels={f'Annual Average {pollutant}': f'Mean {pollutant} Levels', 'State/UT': 'State/UT'})
     
-    SO2 = {
-        "sentences" : ["The x-axis represents the mean SO2 levels, ranging from 0 to 20.",
-                       "The y-axis lists the names of different states and union territories.",
-                       "Each state or UT is represented by a blue bar extending to the right, indicating its respective mean annual average SO2 level.",
-                       "Jharkhand has the highest recorded mean annual average SO2 level, followed by Daman & Diu, Dadra & Nagar Haveli, and others.",
-                       "Lakshadweep has the lowest mean annual average SO2 level on this graph."
-                       ]
-    }
-
-    PM10 ={
-        "sentences":[
-            "The x-axis represents the mean PM10 levels, ranging from 0 to 200.",
-            "The y-axis lists the names of different states and union territories.",
-            "Each state or UT is represented by a blue bar extending to the right, indicating its respective mean annual average PM10 level.",
-            "Delhi has the longest bar, indicating it has the highest mean PM10 level among the listed regions.",
-            "Manipur has one of the shortest bars, showing it has one of the lowest levels of mean annual average PM10."
-        ]
-    }
-
-    NO2 = {
-        "sentences":[
-            "The x-axis represents the mean NO2 levels, ranging from 0 to 60.",
-            "The y-axis lists the names of different states and union territories.",
-            "Each state or UT is represented by a blue bar extending to the right, indicating its respective mean annual average NO2 level.",
-            "Delhi has the highest recorded mean annual average NO2 level, followed by Jharkhand and Haryana.",
-            "Lakshadweep has the lowest m5.	Lakshadweep has one of the lowest mean annual average NO2 levels on this graph."
-        ]
-    }
+   
 
     sentences = []
     if pollutant == "SO2":
-        sentences = SO2["sentences"]
+        print(sentences_data)
+        sentences = sentences_data["comparisonAcrossLocations"]["SO2"]["sentences"]
     elif pollutant == "NO2":
-        sentences = NO2["sentences"]
+        sentences = sentences_data["comparisonAcrossLocations"]["NO2"]["sentences"]
     else:
-        sentences = PM10['sentences']
+        sentences = sentences_data["comparisonAcrossLocations"]["PM10"]["sentences"]
     
     
     return [fig.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), pollutant, sentences ]
@@ -316,14 +292,7 @@ def ComplianceAssessmentOfWaterQuality():
     # Customize layout for better visualization
     #fig.update_xaxes(,tickfont=dict(size=10), title=None)  # Rotate x-axis labels for readability
     fig.update_yaxes(title='Compliance Status')
-    sentences = [
-        "Models: The x-axis represents different station names where water quality is assessed.",
-        "The y-axis ranges from 0 to 1000.",
-        "Each station is represented by a bar.",
-        "Red bars indicate non-compliance (False) with water quality standards.",
-	    "Green bars indicate compliance (True) with water quality standards.",
-        "In summary, most stations are not in compliance with water quality standards, as indicated by the predominance of red bars"
-    ]
+    sentences = sentences_data["ComplianceAssessmentOfWaterQuality"]
     return [fig.to_html(full_html=False, include_plotlyjs='cdn', default_height=500),'Compliance Assessment of Water Quality at Various Stations', sentences]
 
 def StateWiseDisolvedOxygenRange():
@@ -387,14 +356,7 @@ def StateWiseDisolvedOxygenRange():
         text=f"Highest Max Dissolved O2 ({avg_do_by_state['Dissolved O2 max'].max():.2f} mg/l)",
         showarrow=True, arrowhead=1, ax=0, ay=-40
     )
-    sentences = [
-        "The x-axis is labeled with the names of various states.",
-	"The y-axis represents Dissolved Oxygen (D.O.) levels measured in mg/l (milligrams per liter), ranging from 0 to 9 mg/l.",
-	"Each state has two bars side by side: one indicates the average minimum dissolved oxygen level (dark green), and the other indicates the average maximum dissolved oxygen level (light green).",
-	"Annotations are present indicating the “Highest Max Dissolved O2” at approximately 7.90 mg/l and the “Lowest Min Dissolved O2” close to 0.20 mg/l.",
-    "The graph helps us understand the variation of dissolved oxygen levels across different states in India.",
-	"Some states have higher dissolved oxygen levels (closer to 7.90 mg/l), while others have lower levels (near 0.20 mg/l)"
-    ]
+    sentences = sentences_data["StateWiseDisolvedOxygenRange"]
     return [fig.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), 'State-wise Average Minimum and Maximum Dissolved Oxygen (D.O.)', sentences]
 
 def StateWiseWaterPh():
@@ -452,12 +414,7 @@ def StateWiseWaterPh():
         showarrow=True, arrowhead=1, ax=0, ay=-40
     )
 
-    sentences = [
-        "It’s a bar graph with two sets of bars for each state, one indicating minimum (light purple) and another indicating maximum (dark purple) water pH levels.",
-        "There are annotations for the highest max pH (13.64) and lowest min pH (5.91).",
-        "The y-axis is labeled “pH” with a scale from 0 to 15.",
-        "The x-axis is labeled “State” with names of various states listed."
-    ]
+    sentences = sentences_data["StateWiseWaterPh"]
     return [fig.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), 'State-wise Average Minimum and Maximum Water pH', sentences]
 
 def StateWiseWaterTemperature():
@@ -511,10 +468,7 @@ def StateWiseWaterTemperature():
         text=f"Highest Max Temp ({avg_temp_by_state['Temperature (Celsius) max'].max():.2f}°C)",
         showarrow=True, arrowhead=1, ax=0, ay=-40
     )
-    sentences = ["The x-axis labels indicate different states, while the y-axis represents temperature in Celsius, ranging from 0 to 35°C.",
-                 "Each state has two bars: blue for minimum temperature and orange for maximum temperature.",
-                "The highest maximum temperature recorded is 32.42°C in West Bengal, while the lowest minimum is 0°C in Himachal Pradesh"
-    ]
+    sentences = sentences_data["StateWiseWaterTemperature"]
     return [fig.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), 'State-wise Average Minimum and Maximum Water Temperature', sentences]
 
 
@@ -589,57 +543,19 @@ def getPredictivemodel(modelTorender):
     if modelTorender == "MAE":
         HeadTitle = 'Mean Absolute Error (MAE) of Prediction Models'
         yTitle = 'MAE Value'
-        sentences = [
-            "The x-axis represents different prediction “Model” types: Random Forest, Support Vector Machine, K-Nearest Neighbours, Decision Tree, and Multi-Linear Regression.",
-            "The y-axis represents the “MAE Value” ranging from 0 to 120.",
-            "Each bar corresponds to a model and has a distinct colour",
-            "Blue for Random Forest (MAE slightly above 0)",
-            "Orange for Support Vector Machine (MAE just above 100)",
-            "Green for K-Nearest Neighbours (MAE around 70)"
-            "Light blue for Decision Tree (almost zero MAE)",
-            "Purple for Multi-Linear Regression (also almost zero MAE)",
-            "Annotations indicate the highest max MAE (Support Vector Machine) and lowest min MAE (Decision Tree)",
-            "The graph helps us compare the accuracy of different prediction models.",
-	        "Models with lower MAE values are more accurate in their predictions."
-            ]
+        sentences = sentences_data["getPredictivemodel"]["MAE"]["sentences"]
     elif modelTorender == 'RMSE':
         HeadTitle = 'Root Mean Squared Error (RMSE) of Prediction Models'
         yTitle = 'RMSE Value'
-        sentences = [
-            "The x-axis represents five different machine learning models: Random Forest, Support Vector Machine, K-Nearest Neighbors, Decision Tree, and Multi-Linear Regression.",
-            "The y-axis shows the Root Mean Squared Error (RMSE) values. RMSE measures how well a model’s predictions match the actual data. Lower RMSE values indicate better performance.",
-            "Support Vector Machine (SVM) has the highest error, as indicated by the tallest bar.",
-            "K-Nearest Neighbors (KNN) follows with a slightly lower error.",
-            "Multi-Linear Regression has a moderate error.",
-            "Decision Tree performs better than the previous models.",
-            "Random Forest has the lowest error, represented by the shortest bar",
-            "In summary, Random Forest is the best-performing model in terms of RMSE, while Support Vector Machine performs the worst. Lower RMSE values are desirable for accurate predictions."
-        ]
+        sentences = sentences_data["getPredictivemodel"]["RMSE"]["sentences"]
     elif modelTorender == "MSE":
         HeadTitle = 'Mean Squared Error (MSE) of Prediction Models'
         yTitle = 'MSE Value'
-        sentences = [
-            "The x-axis represents five different machine learning models: Random Forest, Support Vector Machine, K-Nearest Neighbors, Decision Tree, and Multi-Linear Regression.",
-            "The y-axis shows the Mean Squared Error (MSE) values. MSE measures how well a model’s predictions match the actual data. Lower MSE values indicate better performance.",
-            "Support Vector Machine (SVM) has the highest error, as indicated by the tallest bar.",
-            "K-Nearest Neighbors (KNN) follows with a slightly lower error.",
-            "Multi-Linear Regression has a moderate error.",
-            "Decision Tree performs better than the previous models.",
-            "Random Forest has the lowest error, represented by the shortest bar"
-            "In summary, Random Forest is the best-performing model in terms of MSE, while Support Vector Machine performs the worst.  lower MSE values are desirable for accurate predictions."
-        ]
+        sentences = sentences_data["getPredictivemodel"]["MSE"]["sentences"]
     else:
         HeadTitle = 'R-squared (R2) of Prediction Models'
         yTitle = 'R-squared Value'
-        sentences = [
-            "The x-axis represents five different machine learning models: Random Forest, Support Vector Machine, K-Nearest Neighbours, Decision Tree, and Multi-Linear Regression.",
-            "The y-axis shows the R-squared (R2) values. R2 measures how well a model’s predictions fit the actual data. It ranges from 0 to 1, where 1 indicates a perfect fit.",
-            "Random Forest has the highest R-squared value, almost 1. This suggests that Random Forest is an effective model according to this metric.",
-            "Decision Tree also shows a high R-squared value, slightly less than Random Forest.",
-            "Multi-Linear Regression and K-Nearest Neighbours have significantly lower R-squared values compared to Random Forest and Decision Tree.",
-            "Support Vector Machine has an extremely low R-squared value close to zero, indicating it is not effective according to this metric.",
-            "In summary, Random Forest performs best in terms of R-squared, while Support Vector Machine performs poorly. Higher R-squared values indicate better model fit."
-        ]
+        sentences = sentences_data["getPredictivemodel"]["R-squared Value"]["sentences"]
 
     mae_fig = go.Figure(go.Bar(x=mae_summary_df['Model'], y=mae_summary_df[modelTorender], name=modelTorender, marker_color=colors))
     mae_fig.update_layout(title=HeadTitle,
@@ -728,20 +644,8 @@ def ComparativeAnalysisOfWaterModel():
                                 arrowhead=1, ax=0, ay=-40, row=(i // 2) + 1, col=(i % 2) + 1)
 
     fig.update_layout(height=800, width=1440, title_text="Comparative Performance of Prediction Models", showlegend=False)
-    sentences = [
-        "The x-axis represents five different machine learning models: Random Forest, Support Vector Machine, K-Nearest Neighbors, Decision Tree, and Multi-Linear Regression.",
-        "MAE (Mean Absolute Error): Measures the average absolute difference between predicted and actual values. Lower MAE values indicate better performance.",
-        "RMSE (Root Mean Square Error): Similar to MAE but emphasizes larger errors. RMSE is the square root of the average squared differences.",
-        "MSE (Mean Squared Error): Measures the average squared difference between predicted and actual values. Lower MSE values are desirable.",
-        "R-squared (R2): Indicates how well the model fits the data. R2 ranges from 0 to 1, with higher values indicating better fit.",
-        "Random Forest performs best in terms of MAE, RMSE, and MSE. It has the lowest error across these metrics.",
-        "Support Vector Machine excels in RMSE, showing the lowest error for this metric.",
-        "Decision Tree also performs well in RMSE and MSE.",
-        "Multi-Linear Regression and K-Nearest Neighbors have higher errors across all metrics",
-        "Random Forest leads in R-squared, indicating better fit to the data",
-        "In summary, Random Forest is the most effective model overall, while Support Vector Machine performs well in RMSE."
-    ]
 
+    sentences = sentences_data["ComparativeAnalysisOfWaterModel"]
     metric_df = pd.DataFrame(columns=['Model'] + metric_names)
 
     for model, metrics in results.items():
@@ -1341,7 +1245,7 @@ def getStateWiseAvgWQI():
     fig_state_wqi.update_layout(xaxis_title='State', yaxis_title='Predicted WQI', width= 1400, height =800,
                                 coloraxis_colorbar=dict(title='Predicted WQI'))
     HeadTitle = 'State-wise Average Predicted Water Quality Index (WQI)'
-    sentences = []
+    sentences = sentences_data["getStateWiseAvgWQI"]
     
     return [fig_state_wqi.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), HeadTitle, sentences,state_wqi_df, None, None, None]
 
@@ -1427,7 +1331,7 @@ def getStationWiseAvgWQI():
                                 width=1400, height=1200,
                                 coloraxis_colorbar=dict(title='Predicted WQI'))
     HeadTitle = 'Station-wise Average Predicted Water Quality Index (WQI)'
-    sentences = []
+    sentences = sentences_data["getStationWiseAvgWQI"]
     return [fig_station_wqi.to_html(full_html=False, include_plotlyjs='cdn', default_height=500), HeadTitle, sentences,None, None, None, None]
     
     
